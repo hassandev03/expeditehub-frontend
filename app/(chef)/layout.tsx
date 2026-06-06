@@ -85,15 +85,15 @@ export default function ChefPortalLayout({
       {/* KDS Top Bar — uses nav-surface (same as admin/cashier) for consistency */}
       <header
         style={{
-          height: '56px',
+          height: '64px',
           background: 'var(--nav-surface)',
-          borderBottom: `4px solid var(--tenant-accent)`,
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 24px',
+          padding: '0 28px',
           flexShrink: 0,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.1)',
         }}
       >
         {/* Left: logo + name + role badge */}
@@ -157,17 +157,25 @@ export default function ChefPortalLayout({
           </div>
           <button
             onClick={handleLogoutButtonSelect}
+            onMouseOver={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.color = '#FFFFFF';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--text-inverted)';
+            }}
             style={{
-              padding: '6px 14px',
+              padding: '8px 16px',
               borderRadius: 'var(--radius-md)',
-              border: '1px solid rgba(247, 248, 246, 0.2)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
               background: 'transparent',
               color: 'var(--text-inverted)',
               fontFamily: 'var(--font-body)',
               fontSize: '13px',
-              fontWeight: 500,
+              fontWeight: 600,
               cursor: 'pointer',
-              transition: 'background 150ms',
+              transition: 'all 200ms ease',
             }}
           >
             Logout

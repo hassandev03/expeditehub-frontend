@@ -61,96 +61,79 @@ export default function LoginPage(): React.JSX.Element {
   }
 
   const inputStyle: React.CSSProperties = {
-    height: '48px',
-    padding: '0 14px',
-    borderRadius: 'var(--radius-md)',
-    border: '1.5px solid var(--border)',
-    background: 'var(--surface-secondary)',
-    color: 'var(--text-primary)',
+    height: '52px',
+    padding: '0 16px',
+    borderRadius: 'var(--radius-lg)',
+    border: '1.5px solid #E5E1D8',
+    background: '#FFFFFF',
+    color: '#1C1915',
     fontFamily: 'var(--font-body)',
     fontSize: '15px',
     outline: 'none',
     width: '100%',
-    transition: 'border-color 150ms',
+    transition: 'all 200ms ease',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
   };
 
   const labelStyle: React.CSSProperties = {
-    fontSize: '12px',
+    fontSize: '13px',
     fontWeight: 600,
-    color: 'var(--text-secondary)',
-    textTransform: 'uppercase',
-    letterSpacing: '0.7px',
+    color: '#4A443B',
+    letterSpacing: '0.3px',
   };
 
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0A0A0A 0%, #111111 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '24px',
-        fontFamily: 'var(--font-body)',
-      }}
-    >
-      {/* Subtle grid overlay */}
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          backgroundImage: `linear-gradient(color-mix(in srgb, var(--tenant-accent) 4%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--tenant-accent) 4%, transparent) 1px, transparent 1px)`,
-          backgroundSize: '48px 48px',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div style={{ width: '100%', maxWidth: '420px', position: 'relative' }}>
-        {/* Logo */}
-        <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-          <Link href="/" style={{ textDecoration: 'none' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo.png"
-                alt="ExpediteHub Logo"
-                width={36}
-                height={36}
-                style={{ borderRadius: 'var(--radius-sm)', objectFit: 'contain' }}
-              />
-              <span style={{ fontWeight: 700, fontSize: '20px', color: '#FFFFFF', letterSpacing: '-0.3px' }}>
-                ExpediteHub
-              </span>
-            </div>
-          </Link>
-          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginTop: '6px' }}>
-            Restaurant Operations Platform
+    <main style={{ minHeight: '100vh', display: 'flex', background: '#FCFAF5', fontFamily: 'var(--font-body)' }}>
+      {/* Left Image Section */}
+      <div style={{
+        flex: 1,
+        position: 'relative',
+        display: 'none',
+      }} className="auth-image-container">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/auth-bg.png" alt="Restaurant Interior" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.4), transparent)' }} />
+        <div style={{ position: 'absolute', bottom: '40px', left: '40px', color: '#FFFFFF' }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '36px', fontWeight: 700, marginBottom: '8px' }}>
+            Elevate your service.
+          </h2>
+          <p style={{ fontSize: '18px', opacity: 0.9, maxWidth: '400px' }}>
+            The premium platform for modern restaurant operations.
           </p>
         </div>
+      </div>
 
-        {/* Card */}
-        <div
-          style={{
-            background: '#FFFFFF',
-            borderRadius: 'var(--radius-lg)',
-            overflow: 'hidden',
-            boxShadow: '0 24px 64px rgba(0,0,0,0.3)',
-          }}
-        >
-          {/* Accent strip at top */}
-          <div style={{ height: '4px', background: 'var(--tenant-accent)' }} />
+      {/* Right Form Section */}
+      <div style={{
+        width: '100%',
+        maxWidth: '560px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '60px',
+        background: '#FCFAF5',
+      }}>
+        <div style={{ width: '100%', maxWidth: '400px', margin: '0 auto' }}>
+          {/* Logo */}
+          <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '48px' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="ExpediteHub Logo" width={40} height={40} style={{ borderRadius: 'var(--radius-sm)', objectFit: 'contain' }} />
+            <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '24px', color: '#1C1915', letterSpacing: '-0.5px' }}>
+              ExpediteHub
+            </span>
+          </Link>
 
-          <div style={{ padding: '32px 36px 36px' }}>
-            <h1 style={{ fontWeight: 700, fontSize: '22px', color: '#111827', marginBottom: '4px', letterSpacing: '-0.3px' }}>
-              Sign in
+          <div>
+            <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '32px', color: '#1C1915', marginBottom: '8px', letterSpacing: '-0.5px' }}>
+              Welcome back
             </h1>
-            <p style={{ fontSize: '14px', color: '#6B7280', marginBottom: '28px' }}>
+            <p style={{ fontSize: '15px', color: '#736B5E', marginBottom: '40px' }}>
               Enter your credentials to access your portal.
             </p>
 
-            <form onSubmit={handleLoginFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label htmlFor="login-email-input" style={labelStyle}>Email</label>
+            <form onSubmit={handleLoginFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label htmlFor="login-email-input" style={labelStyle}>Email Address</label>
                 <input
                   id="login-email-input"
                   type="email"
@@ -159,12 +142,12 @@ export default function LoginPage(): React.JSX.Element {
                   onChange={(ev) => setLoginEmailInputValue(ev.target.value)}
                   placeholder="you@restaurant.com"
                   style={inputStyle}
-                  onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = 'var(--tenant-accent)'; (e.target as HTMLInputElement).style.background = '#FFFFFF'; }}
-                  onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = 'var(--border)'; (e.target as HTMLInputElement).style.background = 'var(--surface-secondary)'; }}
+                  onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = 'var(--tenant-accent)'; (e.target as HTMLInputElement).style.boxShadow = '0 0 0 3px color-mix(in srgb, var(--tenant-accent) 15%, transparent)'; }}
+                  onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = '#E5E1D8'; (e.target as HTMLInputElement).style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)'; }}
                 />
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <label htmlFor="login-password-input" style={labelStyle}>Password</label>
                 <div style={{ position: 'relative' }}>
                   <input
@@ -175,8 +158,8 @@ export default function LoginPage(): React.JSX.Element {
                     onChange={(ev) => setLoginPasswordInputValue(ev.target.value)}
                     placeholder="••••••••"
                     style={{ ...inputStyle, paddingRight: '46px' }}
-                    onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = 'var(--tenant-accent)'; (e.target as HTMLInputElement).style.background = '#FFFFFF'; }}
-                    onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = 'var(--border)'; (e.target as HTMLInputElement).style.background = 'var(--surface-secondary)'; }}
+                    onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = 'var(--tenant-accent)'; (e.target as HTMLInputElement).style.boxShadow = '0 0 0 3px color-mix(in srgb, var(--tenant-accent) 15%, transparent)'; }}
+                    onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = '#E5E1D8'; (e.target as HTMLInputElement).style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)'; }}
                   />
                   <button
                     type="button"
@@ -185,16 +168,16 @@ export default function LoginPage(): React.JSX.Element {
                     style={{
                       position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)',
                       background: 'transparent', border: 'none', cursor: 'pointer',
-                      color: '#9CA3AF', padding: '4px', display: 'flex', alignItems: 'center',
+                      color: '#A8A296', padding: '4px', display: 'flex', alignItems: 'center',
                     }}
                   >
                     {isPasswordVisible ? (
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
                         <line x1="1" y1="1" x2="23" y2="23" />
                       </svg>
                     ) : (
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                         <circle cx="12" cy="12" r="3" />
                       </svg>
@@ -205,14 +188,14 @@ export default function LoginPage(): React.JSX.Element {
 
               {loginErrorMessage && (
                 <div style={{
-                  fontSize: '13px', color: '#DC2626',
+                  fontSize: '13px', color: '#B91C1C',
                   background: '#FEF2F2',
-                  padding: '10px 14px',
+                  padding: '12px 16px',
                   borderRadius: 'var(--radius-md)',
-                  borderLeft: '3px solid #DC2626',
+                  border: '1px solid #F87171',
                   display: 'flex', alignItems: 'center', gap: '8px',
                 }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ flexShrink: 0 }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ flexShrink: 0 }}>
                     <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor"/>
                   </svg>
                   {loginErrorMessage}
@@ -224,26 +207,26 @@ export default function LoginPage(): React.JSX.Element {
                 type="submit"
                 disabled={isLoginRequestPending}
                 style={{
-                  height: '48px',
+                  height: '52px',
                   background: 'var(--tenant-accent)',
                   color: '#FFFFFF',
-                  borderRadius: 'var(--radius-md)',
+                  borderRadius: 'var(--radius-lg)',
                   border: 'none',
                   fontFamily: 'var(--font-body)',
-                  fontWeight: 700,
-                  fontSize: '15px',
+                  fontWeight: 600,
+                  fontSize: '16px',
                   cursor: isLoginRequestPending ? 'not-allowed' : 'pointer',
                   opacity: isLoginRequestPending ? 0.7 : 1,
-                  marginTop: '4px',
-                  transition: 'opacity 150ms, transform 80ms',
-                  letterSpacing: '0.2px',
+                  marginTop: '12px',
+                  transition: 'opacity 200ms, transform 100ms',
+                  boxShadow: '0 4px 12px color-mix(in srgb, var(--tenant-accent) 40%, transparent)',
                 }}
               >
                 {isLoginRequestPending ? 'Signing in…' : 'Sign In'}
               </button>
             </form>
 
-            <p style={{ textAlign: 'center', marginTop: '24px', fontSize: '14px', color: '#6B7280' }}>
+            <p style={{ textAlign: 'center', marginTop: '32px', fontSize: '15px', color: '#736B5E' }}>
               New restaurant?{' '}
               <Link href="/register" style={{ color: 'var(--tenant-accent)', textDecoration: 'none', fontWeight: 600 }}>
                 Register here

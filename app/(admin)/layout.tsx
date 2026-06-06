@@ -73,68 +73,109 @@ export default function AdminPortalLayout({
         <div
           style={{
             display: 'flex',
-            justifyContent: 'flex-end',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '12px 32px',
+            padding: '16px 32px',
             borderBottom: '1px solid var(--border)',
             background: 'var(--surface-card)',
-            gap: '14px',
           }}
         >
-          {/* Avatar + name */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div
+          {/* Left: Tenant Name prominent */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span
               style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                background: 'var(--tenant-accent)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#FFFFFF',
-                fontFamily: 'var(--font-body)',
-                fontWeight: 600,
-                fontSize: '12px',
-                flexShrink: 0,
+                fontFamily: 'var(--font-heading)',
+                fontWeight: 700,
+                fontSize: '18px',
+                color: 'var(--text-primary)',
+                letterSpacing: '-0.2px',
               }}
             >
-              {authenticatedEmployee.fullName
-                .split(' ')
-                .map((n) => n[0])
-                .join('')
-                .toUpperCase()
-                .slice(0, 2)}
-            </div>
+              {restaurantTenant?.restaurantTenantName ?? 'ExpediteHub'}
+            </span>
             <span
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: 'var(--text-primary)',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: 'var(--tenant-accent)',
+                background: 'color-mix(in srgb, var(--tenant-accent) 10%, transparent)',
+                padding: '4px 10px',
+                borderRadius: 'var(--radius-pill)',
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
               }}
             >
-              {authenticatedEmployee.fullName}
+              Admin Portal
             </span>
           </div>
 
-          <button
-            onClick={handleLogoutButtonSelect}
-            style={{
-              padding: '6px 14px',
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--border)',
-              background: 'transparent',
-              color: 'var(--text-secondary)',
-              fontFamily: 'var(--font-body)',
-              fontSize: '13px',
-              fontWeight: 500,
-              cursor: 'pointer',
-              transition: 'background 150ms',
-            }}
-          >
-            Logout
-          </button>
+          {/* Right: Avatar + name + logout */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: 'var(--tenant-accent)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#FFFFFF',
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 600,
+                  fontSize: '12px',
+                  flexShrink: 0,
+                }}
+              >
+                {authenticatedEmployee.fullName
+                  .split(' ')
+                  .map((n) => n[0])
+                  .join('')
+                  .toUpperCase()
+                  .slice(0, 2)}
+              </div>
+              <span
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: 'var(--text-primary)',
+                }}
+              >
+                {authenticatedEmployee.fullName}
+              </span>
+            </div>
+
+            <div style={{ width: '1px', height: '24px', background: 'var(--border)' }} />
+
+            <button
+              onClick={handleLogoutButtonSelect}
+              style={{
+                padding: '8px 16px',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--border)',
+                background: 'transparent',
+                color: 'var(--text-secondary)',
+                fontFamily: 'var(--font-body)',
+                fontSize: '13px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 200ms ease',
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = 'var(--surface-secondary)';
+                e.currentTarget.style.color = 'var(--text-primary)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = 'var(--text-secondary)';
+              }}
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         <div style={{ flex: 1, padding: '32px' }}>

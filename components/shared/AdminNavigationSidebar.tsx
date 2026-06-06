@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -20,9 +20,9 @@ const adminNavigationItemList: NavigationItemDefinition[] = [
     navigationItemLabel: 'Dashboard',
     navigationItemPath: '/dashboard',
     navigationItemIcon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
-        <rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="14" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" />
       </svg>
     ),
   },
@@ -30,7 +30,7 @@ const adminNavigationItemList: NavigationItemDefinition[] = [
     navigationItemLabel: 'Staff',
     navigationItemPath: '/staff',
     navigationItemIcon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -42,7 +42,7 @@ const adminNavigationItemList: NavigationItemDefinition[] = [
     navigationItemLabel: 'Menu',
     navigationItemPath: '/menu',
     navigationItemIcon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2v8M8 2v5M16 2v5M8 7c0 2.2 1.8 4 4 4s4-1.8 4-4M12 11v11" />
       </svg>
     ),
@@ -51,7 +51,7 @@ const adminNavigationItemList: NavigationItemDefinition[] = [
     navigationItemLabel: 'Order History',
     navigationItemPath: '/orders',
     navigationItemIcon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 11l3 3L22 4" />
         <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
       </svg>
@@ -64,29 +64,70 @@ export default function AdminNavigationSidebar({
   restaurantTenantLogoUrl,
 }: AdminNavigationSidebarProperties): React.JSX.Element {
   const currentPathname = usePathname();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
     <aside
       style={{
-        width: '240px',
+        width: isCollapsed ? '80px' : '260px',
         minHeight: '100vh',
         background: 'var(--nav-surface)',
         display: 'flex',
         flexDirection: 'column',
         flexShrink: 0,
         position: 'relative',
+        transition: 'width 300ms cubic-bezier(0.2, 0, 0, 1)',
+        borderRight: '1px solid rgba(255, 255, 255, 0.05)',
       }}
     >
-      {/* Top accent line (removed to clean up the UI and avoid clutter) */}
+      {/* Collapse Toggle Button */}
+      <button
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        style={{
+          position: 'absolute',
+          right: '-14px',
+          top: '32px',
+          width: '28px',
+          height: '28px',
+          borderRadius: '50%',
+          background: 'var(--surface-card)',
+          border: '1px solid var(--border)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          zIndex: 10,
+          color: 'var(--text-secondary)',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+          transition: 'transform 300ms, background 150ms',
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.background = 'var(--surface-secondary)';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.background = 'var(--surface-card)';
+        }}
+      >
+        <svg
+          width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+          style={{
+            transform: isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 300ms cubic-bezier(0.2, 0, 0, 1)',
+          }}
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
 
       {/* Logo and restaurant name */}
       <div
         style={{
-          padding: '24px 20px 20px',
+          padding: isCollapsed ? '24px 12px 20px' : '24px 24px 20px',
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
           marginTop: '4px',
+          minHeight: '84px',
         }}
       >
         <div
@@ -100,6 +141,7 @@ export default function AdminNavigationSidebar({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            margin: isCollapsed ? '0 auto' : '0',
           }}
         >
           <img
@@ -112,41 +154,43 @@ export default function AdminNavigationSidebar({
             }}
           />
         </div>
-        <div style={{ overflow: 'hidden' }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 600,
-              fontSize: '14px',
-              color: 'var(--text-inverted)',
-              display: 'block',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {restaurantTenantName}
-          </span>
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 400,
-              fontSize: '11px',
-              color: 'rgba(247, 248, 246, 0.4)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.8px',
-            }}
-          >
-            Admin Portal
-          </span>
-        </div>
+        {!isCollapsed && (
+          <div style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontWeight: 700,
+                fontSize: '16px',
+                color: 'var(--text-inverted)',
+                display: 'block',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                letterSpacing: '0.2px',
+              }}
+            >
+              {restaurantTenantName}
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontWeight: 600,
+                fontSize: '11px',
+                color: 'var(--tenant-accent)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}
+            >
+              Admin Portal
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Divider */}
-      <div style={{ height: '1px', background: 'rgba(255,255,255, 0.06)', margin: '0 20px 24px' }} />
+      <div style={{ height: '1px', background: 'rgba(255,255,255, 0.08)', margin: isCollapsed ? '0 16px 24px' : '0 24px 24px', transition: 'margin 300ms' }} />
 
       {/* Navigation items */}
-      <nav style={{ flex: 1, padding: '0 16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      <nav style={{ flex: 1, padding: isCollapsed ? '0 12px' : '0 16px', display: 'flex', flexDirection: 'column', gap: '6px', transition: 'padding 300ms' }}>
         {adminNavigationItemList.map((navigationItem) => {
           const isCurrentlyActiveRoute = currentPathname === navigationItem.navigationItemPath ||
             currentPathname.startsWith(navigationItem.navigationItemPath + '/');
@@ -155,35 +199,37 @@ export default function AdminNavigationSidebar({
             <Link
               key={navigationItem.navigationItemPath}
               href={navigationItem.navigationItemPath}
+              title={isCollapsed ? navigationItem.navigationItemLabel : undefined}
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
-                padding: '12px 16px',
+                justifyContent: isCollapsed ? 'center' : 'flex-start',
+                gap: '14px',
+                padding: isCollapsed ? '12px 0' : '12px 16px',
                 borderRadius: 'var(--radius-lg)',
                 textDecoration: 'none',
                 color: isCurrentlyActiveRoute
                   ? '#FFFFFF'
-                  : 'rgba(255,255,255,0.5)',
+                  : 'rgba(255,255,255,0.6)',
                 background: isCurrentlyActiveRoute
-                  ? 'color-mix(in srgb, var(--tenant-accent) 15%, transparent)'
+                  ? 'color-mix(in srgb, var(--tenant-accent) 20%, transparent)'
                   : 'transparent',
                 fontFamily: 'var(--font-body)',
                 fontWeight: isCurrentlyActiveRoute ? 600 : 500,
-                fontSize: '14.5px',
+                fontSize: '15px',
                 letterSpacing: '0.2px',
-                transition: 'all 150ms ease-out',
+                transition: 'all 200ms ease-out',
                 position: 'relative',
               }}
             >
-              {isCurrentlyActiveRoute && (
+              {isCurrentlyActiveRoute && !isCollapsed && (
                 <div style={{
                   position: 'absolute',
                   left: 0,
                   top: '50%',
                   transform: 'translateY(-50%)',
                   width: '3px',
-                  height: '18px',
+                  height: '20px',
                   background: 'var(--tenant-accent)',
                   borderRadius: '0 4px 4px 0',
                 }} />
@@ -199,7 +245,11 @@ export default function AdminNavigationSidebar({
               >
                 {navigationItem.navigationItemIcon}
               </span>
-              {navigationItem.navigationItemLabel}
+              {!isCollapsed && (
+                <span style={{ whiteSpace: 'nowrap' }}>
+                  {navigationItem.navigationItemLabel}
+                </span>
+              )}
             </Link>
           );
         })}
@@ -207,26 +257,32 @@ export default function AdminNavigationSidebar({
 
       {/* Sidebar footer */}
       <div style={{
-        padding: '16px 20px',
-        borderTop: '1px solid rgba(247, 248, 246, 0.06)',
+        padding: isCollapsed ? '16px 0' : '16px 24px',
+        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
         flexShrink: 0,
         display: 'flex',
         alignItems: 'center',
-        gap: '8px',
+        justifyContent: isCollapsed ? 'center' : 'flex-start',
+        gap: '10px',
+        transition: 'padding 300ms',
       }}>
         <img
           src="/logo.png"
           alt="ExpediteHub"
-          style={{ width: '16px', height: '16px', objectFit: 'contain', opacity: 0.25 }}
+          style={{ width: '20px', height: '20px', objectFit: 'contain', opacity: 0.3 }}
         />
-        <p style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: '11px',
-          color: 'rgba(247, 248, 246, 0.25)',
-          letterSpacing: '0.3px',
-        }}>
-          ExpediteHub
-        </p>
+        {!isCollapsed && (
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '12px',
+            color: 'rgba(255, 255, 255, 0.3)',
+            letterSpacing: '0.3px',
+            fontWeight: 500,
+            whiteSpace: 'nowrap',
+          }}>
+            ExpediteHub
+          </p>
+        )}
       </div>
     </aside>
   );
