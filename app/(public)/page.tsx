@@ -24,8 +24,8 @@ export default function LandingPage(): React.JSX.Element {
         style={{
           position: 'fixed',
           inset: 0,
-          backgroundImage: `linear-gradient(rgba(27, 122, 109, 0.05) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(27, 122, 109, 0.05) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(color-mix(in srgb, var(--tenant-accent) 5%, transparent) 1px, transparent 1px),
+                            linear-gradient(90deg, color-mix(in srgb, var(--tenant-accent) 5%, transparent) 1px, transparent 1px)`,
           backgroundSize: '56px 56px',
           pointerEvents: 'none',
           zIndex: 0,
@@ -110,9 +110,9 @@ export default function LandingPage(): React.JSX.Element {
             gap: '6px',
             padding: '6px 16px',
             borderRadius: 'var(--radius-pill)',
-            background: 'rgba(27, 122, 109, 0.15)',
-            border: '1px solid rgba(27, 122, 109, 0.35)',
-            color: '#4ECDC4',
+            background: 'color-mix(in srgb, var(--tenant-accent) 15%, transparent)',
+            border: '1px solid color-mix(in srgb, var(--tenant-accent) 35%, transparent)',
+            color: 'var(--tenant-accent)',
             fontSize: '12px',
             fontWeight: 600,
             letterSpacing: '1px',
@@ -120,7 +120,7 @@ export default function LandingPage(): React.JSX.Element {
             marginBottom: '32px',
           }}
         >
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4ECDC4', display: 'inline-block' }} />
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--tenant-accent)', display: 'inline-block' }} />
           Multi-Tenant Restaurant Platform
         </div>
 
@@ -137,7 +137,7 @@ export default function LandingPage(): React.JSX.Element {
         >
           Your kitchen, orders, and
           <br />
-          <span style={{ color: 'var(--tenant-accent)' }}>analytics — synchronized.</span>
+          <span style={{ color: 'var(--tenant-accent)' }}>analytics, synchronized.</span>
         </h1>
 
         <p
@@ -150,7 +150,7 @@ export default function LandingPage(): React.JSX.Element {
           }}
         >
           ExpediteHub connects your admin, cashier, and kitchen in real time.
-          Place orders, track prep status, and view live revenue — all without a single page reload.
+          Place orders, track prep status, and view live revenue. No page reloads.
         </p>
 
         <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -246,13 +246,14 @@ export default function LandingPage(): React.JSX.Element {
                   fontWeight: 700,
                   fontSize: '13px',
                   color: 'var(--tenant-accent)',
-                  background: 'rgba(27, 122, 109, 0.12)',
+                  color: 'var(--tenant-accent)',
+                  background: 'color-mix(in srgb, var(--tenant-accent) 12%, transparent)',
                   padding: '3px 10px',
                   borderRadius: 'var(--radius-pill)',
                 }}>
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <div style={{ height: '1px', flex: 1, background: 'rgba(27, 122, 109, 0.2)' }} />
+                <div style={{ height: '1px', flex: 1, background: 'color-mix(in srgb, var(--tenant-accent) 20%, transparent)' }} />
               </div>
               <h3 style={{
                 fontFamily: 'var(--font-body)',
@@ -422,7 +423,7 @@ const portalFeatureCardDataList: PortalFeatureCardData[] = [
     portalFeatureCardTitle: 'Admin Portal',
     portalFeatureCardDescription:
       'Manage your menu, staff roster, and view live analytics including revenue breakdowns by category, cashier, and chef performance.',
-    portalFeatureCardAccentColor: '#1B7A6D',
+    portalFeatureCardAccentColor: 'var(--tenant-accent)',
     portalFeatureCardIconElement: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />

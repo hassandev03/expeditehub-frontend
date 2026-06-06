@@ -99,7 +99,7 @@ export default function LoginPage(): React.JSX.Element {
         style={{
           position: 'fixed',
           inset: 0,
-          backgroundImage: `linear-gradient(rgba(27, 122, 109, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(27, 122, 109, 0.04) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(color-mix(in srgb, var(--tenant-accent) 4%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--tenant-accent) 4%, transparent) 1px, transparent 1px)`,
           backgroundSize: '48px 48px',
           pointerEvents: 'none',
         }}

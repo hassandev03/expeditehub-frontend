@@ -37,13 +37,7 @@ export default function AdminPortalLayout({
     }
   }, [authenticatedEmployee, routerInstance, _hasHydrated]);
 
-  // Inject tenant accent color
-  useEffect(() => {
-    const tenantBrandColor = restaurantTenant?.restaurantTenantBrandColor ?? '#1B7A6D';
-    document.documentElement.style.setProperty('--tenant-accent', tenantBrandColor);
-    // Derive hover state: approximate darkening by adjusting
-    document.documentElement.style.setProperty('--tenant-accent-hover', tenantBrandColor);
-  }, [restaurantTenant]);
+
 
   async function handleLogoutButtonSelect(): Promise<void> {
     try {
@@ -64,7 +58,7 @@ export default function AdminPortalLayout({
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-main)' }}>
       <AdminNavigationSidebar
         restaurantTenantName={restaurantTenant?.restaurantTenantName ?? 'ExpediteHub'}
-        restaurantTenantLogoUrl={restaurantTenant?.restaurantTenantLogoUrl}
+        restaurantTenantLogoUrl={restaurantTenant?.restaurantTenantLogoUrl ?? '/logo.png'}
       />
 
       <div

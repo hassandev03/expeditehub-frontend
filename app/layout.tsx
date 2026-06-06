@@ -33,6 +33,9 @@ export default function RootLayout({ children }: RootLayoutProperties) {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        {/* Favicon */}
+        <link rel="icon" href="/logo.png" type="image/png" />
+        <link rel="shortcut icon" href="/logo.png" type="image/png" />
       </head>
       <body>
         <ApplicationProviders>{children}</ApplicationProviders>

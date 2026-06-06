@@ -71,7 +71,7 @@ export default function ActiveOrdersBanner(): React.JSX.Element {
           lineHeight: 1,
         }}
       >
-        {activeOrdersCount ?? '—'}
+        {activeOrdersCount ?? '-'}
       </div>
     </div>
   );

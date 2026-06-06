@@ -47,10 +47,7 @@ export default function ChefPortalLayout({
     }
   }, [authenticatedEmployee, routerInstance, _hasHydrated]);
 
-  useEffect(() => {
-    const tenantBrandColor = restaurantTenant?.restaurantTenantBrandColor ?? '#1B7A6D';
-    document.documentElement.style.setProperty('--tenant-accent', tenantBrandColor);
-  }, [restaurantTenant]);
+
 
   useEffect(() => {
     if (authenticatedEmployee?.role === 'chef' && accessToken) {

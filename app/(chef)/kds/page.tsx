@@ -35,6 +35,7 @@ export default function ChefKdsPage(): React.JSX.Element {
   const { data: initialActiveOrderData, isLoading: isInitialOrderDataLoading } = useQuery({
     queryKey: ['orders', 'active'],
     queryFn: getActiveKitchenOrderList,
+    refetchInterval: 15_000,
   });
 
   const { data: menuItemListData } = useQuery({
@@ -74,12 +75,22 @@ export default function ChefKdsPage(): React.JSX.Element {
       });
     }
 
+    function handleOrderPaidSocketEvent(paidOrderPayload: { orderId: string }): void {
+      setKanbanOrderList((previousOrderList) =>
+        previousOrderList.filter(
+          (orderRecord) => orderRecord.restaurantOrderIdentifier !== paidOrderPayload.orderId
+        )
+      );
+    }
+
     socketClientInstance.on('new_order', handleNewOrderSocketEvent);
     socketClientInstance.on('order_delayed', handleOrderDelayedSocketEvent);
+    socketClientInstance.on('order_paid', handleOrderPaidSocketEvent);
 
     return () => {
       socketClientInstance.off('new_order', handleNewOrderSocketEvent);
       socketClientInstance.off('order_delayed', handleOrderDelayedSocketEvent);
+      socketClientInstance.off('order_paid', handleOrderPaidSocketEvent);
     };
   }, []);
 

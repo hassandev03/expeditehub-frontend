@@ -18,8 +18,8 @@
    ───────────────────────────────────────── */
 :root {
   /* ─── Tenant Injection (set post-auth via JS) ─── */
-  --tenant-accent:         #1B7A6D;
-  --tenant-accent-hover:   #156B5F;
+  --tenant-accent:         #C2692A;
+  --tenant-accent-hover:   #A85A22;
 
   /* ─── Light Theme (Admin + Cashier) ─── */
   --bg-main:               #F7F8F6;

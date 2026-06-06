@@ -37,10 +37,7 @@ export default function CashierPortalLayout({
     }
   }, [authenticatedEmployee, routerInstance, _hasHydrated]);
 
-  useEffect(() => {
-    const tenantBrandColor = restaurantTenant?.restaurantTenantBrandColor ?? '#1E6B6B';
-    document.documentElement.style.setProperty('--tenant-accent', tenantBrandColor);
-  }, [restaurantTenant]);
+
 
   useEffect(() => {
     if (authenticatedEmployee?.role === 'cashier' && accessToken) {
@@ -76,7 +73,7 @@ export default function CashierPortalLayout({
     >
       <PortalTopBar
         restaurantTenantName={restaurantTenant?.restaurantTenantName ?? 'ExpediteHub'}
-        restaurantTenantLogoUrl="/logo.png"
+        restaurantTenantLogoUrl={restaurantTenant?.restaurantTenantLogoUrl ?? '/logo.png'}
         authenticatedEmployeeFullName={authenticatedEmployee.fullName}
         onLogoutButtonSelect={handleLogoutButtonSelect}
       />

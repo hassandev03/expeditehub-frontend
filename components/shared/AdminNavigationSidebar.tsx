@@ -20,7 +20,7 @@ const adminNavigationItemList: NavigationItemDefinition[] = [
     navigationItemLabel: 'Dashboard',
     navigationItemPath: '/dashboard',
     navigationItemIcon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
         <rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
       </svg>
@@ -30,7 +30,7 @@ const adminNavigationItemList: NavigationItemDefinition[] = [
     navigationItemLabel: 'Staff',
     navigationItemPath: '/staff',
     navigationItemIcon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -42,8 +42,8 @@ const adminNavigationItemList: NavigationItemDefinition[] = [
     navigationItemLabel: 'Menu',
     navigationItemPath: '/menu',
     navigationItemIcon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 6h18M3 12h18M3 18h18" />
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2v8M8 2v5M16 2v5M8 7c0 2.2 1.8 4 4 4s4-1.8 4-4M12 11v11" />
       </svg>
     ),
   },
@@ -51,7 +51,7 @@ const adminNavigationItemList: NavigationItemDefinition[] = [
     navigationItemLabel: 'Order History',
     navigationItemPath: '/orders',
     navigationItemIcon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 11l3 3L22 4" />
         <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
       </svg>
@@ -92,64 +92,71 @@ export default function AdminNavigationSidebar({
       {/* Logo and restaurant name */}
       <div
         style={{
-          padding: '28px 20px 16px',
+          padding: '24px 20px 20px',
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
+          gap: '12px',
           marginTop: '4px',
         }}
       >
-        {restaurantTenantLogoUrl ? (
-          <img
-            src={restaurantTenantLogoUrl}
-            alt={`${restaurantTenantName} logo`}
-            style={{
-              width: '32px',
-              height: '32px',
-              objectFit: 'contain',
-              borderRadius: 'var(--radius-sm)',
-            }}
-          />
-        ) : (
-          <div
-            style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: 'var(--radius-sm)',
-              background: 'var(--tenant-accent)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#FFFFFF',
-              fontWeight: 700,
-              fontSize: '14px',
-              fontFamily: 'var(--font-body)',
-              flexShrink: 0,
-            }}
-          >
-            {restaurantTenantName.charAt(0).toUpperCase()}
-          </div>
-        )}
-        <span
+        <div
           style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 500,
-            fontSize: '14px',
-            color: 'var(--text-inverted)',
+            width: '40px',
+            height: '40px',
+            borderRadius: 'var(--radius-md)',
+            flexShrink: 0,
             overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
+            background: 'rgba(255,255,255,0.08)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          {restaurantTenantName}
-        </span>
+          <img
+            src={restaurantTenantLogoUrl ?? '/logo.png'}
+            alt={`${restaurantTenantName} logo`}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+            }}
+          />
+        </div>
+        <div style={{ overflow: 'hidden' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontWeight: 600,
+              fontSize: '14px',
+              color: 'var(--text-inverted)',
+              display: 'block',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {restaurantTenantName}
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontWeight: 400,
+              fontSize: '11px',
+              color: 'rgba(247, 248, 246, 0.4)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.8px',
+            }}
+          >
+            Admin Portal
+          </span>
+        </div>
       </div>
 
       {/* Divider */}
-      <div style={{ height: '1px', background: 'rgba(247, 248, 246, 0.08)', margin: '0 20px 12px' }} />
+      <div style={{ height: '1px', background: 'rgba(247, 248, 246, 0.08)', margin: '0 20px 16px' }} />
 
       {/* Navigation items */}
-      <nav style={{ flex: 1, padding: '0 8px' }}>
+      <nav style={{ flex: 1, padding: '0 10px' }}>
         {adminNavigationItemList.map((navigationItem) => {
           const isCurrentlyActiveRoute = currentPathname === navigationItem.navigationItemPath ||
             currentPathname.startsWith(navigationItem.navigationItemPath + '/');
@@ -164,21 +171,21 @@ export default function AdminNavigationSidebar({
                 gap: '12px',
                 padding: '10px 12px',
                 borderRadius: 'var(--radius-md)',
-                marginBottom: '3px',
+                marginBottom: '2px',
                 textDecoration: 'none',
                 color: isCurrentlyActiveRoute
                   ? '#FFFFFF'
                   : 'rgba(247, 248, 246, 0.55)',
                 background: isCurrentlyActiveRoute
-                  ? 'rgba(27, 122, 109, 0.22)'
+                  ? 'rgba(194, 105, 42, 0.18)'
                   : 'transparent',
                 borderLeft: isCurrentlyActiveRoute
                   ? '3px solid var(--tenant-accent)'
                   : '3px solid transparent',
                 fontFamily: 'var(--font-body)',
-                fontWeight: isCurrentlyActiveRoute ? 600 : 500,
+                fontWeight: isCurrentlyActiveRoute ? 600 : 400,
                 fontSize: '14px',
-                transition: 'color 160ms, background 160ms, font-weight 160ms',
+                transition: 'color 150ms, background 150ms',
               }}
             >
               <span
@@ -186,7 +193,8 @@ export default function AdminNavigationSidebar({
                   opacity: isCurrentlyActiveRoute ? 1 : 0.5,
                   display: 'flex',
                   alignItems: 'center',
-                  transition: 'opacity 160ms',
+                  transition: 'opacity 150ms',
+                  flexShrink: 0,
                 }}
               >
                 {navigationItem.navigationItemIcon}
@@ -202,14 +210,22 @@ export default function AdminNavigationSidebar({
         padding: '16px 20px',
         borderTop: '1px solid rgba(247, 248, 246, 0.06)',
         flexShrink: 0,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
       }}>
+        <img
+          src="/logo.png"
+          alt="ExpediteHub"
+          style={{ width: '16px', height: '16px', objectFit: 'contain', opacity: 0.25 }}
+        />
         <p style={{
           fontFamily: 'var(--font-body)',
           fontSize: '11px',
           color: 'rgba(247, 248, 246, 0.25)',
           letterSpacing: '0.3px',
         }}>
-          ExpediteHub · Admin Portal
+          ExpediteHub
         </p>
       </div>
     </aside>
