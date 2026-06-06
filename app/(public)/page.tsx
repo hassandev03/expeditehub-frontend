@@ -13,7 +13,7 @@ export default function LandingPage(): React.JSX.Element {
     <main
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(160deg, #0D1312 0%, #111C1A 60%, #0C1110 100%)',
+        background: 'linear-gradient(160deg, #0A0A0A 0%, #111111 60%, #050505 100%)',
         color: '#EFF4F2',
         fontFamily: 'var(--font-body)',
         overflowX: 'hidden',
@@ -231,7 +231,7 @@ export default function LandingPage(): React.JSX.Element {
             <div
               key={step.stepTitle}
               style={{
-                background: '#111C1A',
+                background: '#141414',
                 padding: '32px 28px',
               }}
             >
@@ -245,7 +245,6 @@ export default function LandingPage(): React.JSX.Element {
                   fontFamily: 'var(--font-display)',
                   fontWeight: 700,
                   fontSize: '13px',
-                  color: 'var(--tenant-accent)',
                   color: 'var(--tenant-accent)',
                   background: 'color-mix(in srgb, var(--tenant-accent) 12%, transparent)',
                   padding: '3px 10px',
@@ -318,13 +317,14 @@ export default function LandingPage(): React.JSX.Element {
           {portalFeatureCardDataList.map((portalFeatureCard) => (
             <div
               key={portalFeatureCard.portalFeatureCardTitle}
+              className="portal-feature-card"
               style={{
-                background: '#1A2525',
+                background: '#111111',
                 borderRadius: 'var(--radius-lg)',
-                padding: '28px',
+                padding: '32px',
                 border: '1px solid rgba(255,255,255,0.06)',
-                borderTop: `3px solid ${portalFeatureCard.portalFeatureCardAccentColor}`,
-                transition: 'transform 160ms, box-shadow 160ms',
+                transition: 'transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out',
+                position: 'relative',
               }}
             >
               <div
@@ -332,12 +332,12 @@ export default function LandingPage(): React.JSX.Element {
                   width: '44px',
                   height: '44px',
                   borderRadius: 'var(--radius-md)',
-                  background: `${portalFeatureCard.portalFeatureCardAccentColor}18`,
+                  background: 'color-mix(in srgb, var(--tenant-accent) 15%, transparent)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginBottom: '18px',
-                  color: portalFeatureCard.portalFeatureCardAccentColor,
+                  marginBottom: '20px',
+                  color: 'var(--tenant-accent)',
                 }}
               >
                 {portalFeatureCard.portalFeatureCardIconElement}
@@ -414,7 +414,6 @@ const howItWorksStepList: HowItWorksStepData[] = [
 interface PortalFeatureCardData {
   portalFeatureCardTitle: string;
   portalFeatureCardDescription: string;
-  portalFeatureCardAccentColor: string;
   portalFeatureCardIconElement: React.ReactNode;
 }
 
@@ -423,7 +422,6 @@ const portalFeatureCardDataList: PortalFeatureCardData[] = [
     portalFeatureCardTitle: 'Admin Portal',
     portalFeatureCardDescription:
       'Manage your menu, staff roster, and view live analytics including revenue breakdowns by category, cashier, and chef performance.',
-    portalFeatureCardAccentColor: 'var(--tenant-accent)',
     portalFeatureCardIconElement: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
@@ -435,7 +433,6 @@ const portalFeatureCardDataList: PortalFeatureCardData[] = [
     portalFeatureCardTitle: 'Cashier POS',
     portalFeatureCardDescription:
       'A fast point-of-sale view with real-time menu updates via sockets. Build orders, track ready tickets, and process payments instantly.',
-    portalFeatureCardAccentColor: '#3B82F6',
     portalFeatureCardIconElement: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -447,7 +444,6 @@ const portalFeatureCardDataList: PortalFeatureCardData[] = [
     portalFeatureCardTitle: 'Kitchen Display',
     portalFeatureCardDescription:
       'A warm-light Kanban board readable from across a prep station. Orders arrive in real time. Delayed tickets surface immediately.',
-    portalFeatureCardAccentColor: '#10B981',
     portalFeatureCardIconElement: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M3 11l19-9-9 19-2-8-8-2z" />

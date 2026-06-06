@@ -119,7 +119,7 @@ export default function RegisterPage(): React.JSX.Element {
     <main
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0D1312 0%, #111C1A 100%)',
+        background: 'linear-gradient(135deg, #0A0A0A 0%, #111111 100%)',
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'center',

@@ -77,17 +77,7 @@ export default function AdminNavigationSidebar({
         position: 'relative',
       }}
     >
-      {/* 4px top accent strip */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '4px',
-          background: 'var(--tenant-accent)',
-        }}
-      />
+      {/* Top accent line (removed to clean up the UI and avoid clutter) */}
 
       {/* Logo and restaurant name */}
       <div
@@ -106,7 +96,7 @@ export default function AdminNavigationSidebar({
             borderRadius: 'var(--radius-md)',
             flexShrink: 0,
             overflow: 'hidden',
-            background: 'rgba(255,255,255,0.08)',
+            background: 'transparent',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -153,10 +143,10 @@ export default function AdminNavigationSidebar({
       </div>
 
       {/* Divider */}
-      <div style={{ height: '1px', background: 'rgba(247, 248, 246, 0.08)', margin: '0 20px 16px' }} />
+      <div style={{ height: '1px', background: 'rgba(255,255,255, 0.06)', margin: '0 20px 24px' }} />
 
       {/* Navigation items */}
-      <nav style={{ flex: 1, padding: '0 10px' }}>
+      <nav style={{ flex: 1, padding: '0 16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
         {adminNavigationItemList.map((navigationItem) => {
           const isCurrentlyActiveRoute = currentPathname === navigationItem.navigationItemPath ||
             currentPathname.startsWith(navigationItem.navigationItemPath + '/');
@@ -169,31 +159,41 @@ export default function AdminNavigationSidebar({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
-                padding: '10px 12px',
-                borderRadius: 'var(--radius-md)',
-                marginBottom: '2px',
+                padding: '12px 16px',
+                borderRadius: 'var(--radius-lg)',
                 textDecoration: 'none',
                 color: isCurrentlyActiveRoute
                   ? '#FFFFFF'
-                  : 'rgba(247, 248, 246, 0.55)',
+                  : 'rgba(255,255,255,0.5)',
                 background: isCurrentlyActiveRoute
-                  ? 'rgba(194, 105, 42, 0.18)'
+                  ? 'color-mix(in srgb, var(--tenant-accent) 15%, transparent)'
                   : 'transparent',
-                borderLeft: isCurrentlyActiveRoute
-                  ? '3px solid var(--tenant-accent)'
-                  : '3px solid transparent',
                 fontFamily: 'var(--font-body)',
-                fontWeight: isCurrentlyActiveRoute ? 600 : 400,
-                fontSize: '14px',
-                transition: 'color 150ms, background 150ms',
+                fontWeight: isCurrentlyActiveRoute ? 600 : 500,
+                fontSize: '14.5px',
+                letterSpacing: '0.2px',
+                transition: 'all 150ms ease-out',
+                position: 'relative',
               }}
             >
+              {isCurrentlyActiveRoute && (
+                <div style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '3px',
+                  height: '18px',
+                  background: 'var(--tenant-accent)',
+                  borderRadius: '0 4px 4px 0',
+                }} />
+              )}
               <span
                 style={{
-                  opacity: isCurrentlyActiveRoute ? 1 : 0.5,
+                  color: isCurrentlyActiveRoute ? 'var(--tenant-accent)' : 'inherit',
                   display: 'flex',
                   alignItems: 'center',
-                  transition: 'opacity 150ms',
+                  transition: 'color 150ms',
                   flexShrink: 0,
                 }}
               >

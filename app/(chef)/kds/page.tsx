@@ -526,18 +526,16 @@ function KitchenOrderTicket({
     <div
       className="animate-ticket-arrive"
       style={{
-        background: 'var(--kds-surface)',
-        borderRadius: 'var(--radius-md)',
-        borderLeft: `4px solid ${ticketBorderColor}`,
-        boxShadow: '0 1px 4px rgba(28, 25, 18, 0.08), 0 4px 12px rgba(28, 25, 18, 0.06)',
-        padding: '16px',
+        background: '#FCFAF5', /* Warm receipt paper feel */
+        borderRadius: '4px', /* Sharper corners for physical ticket feel */
+        boxShadow: '0 4px 16px rgba(28, 25, 18, 0.06)',
+        padding: '18px 20px',
         opacity: orderRecord.restaurantOrderStatus === 'Ready' ? 0.85 : 1,
         animation: isTicketDelayed
           ? 'pulse-delayed-border 2s ease-in-out infinite'
           : undefined,
         border: `1px solid var(--kds-border)`,
-        borderLeftWidth: '4px',
-        borderLeftColor: ticketBorderColor,
+        borderTop: `6px solid ${ticketBorderColor}`, /* Bold top color block like a printed header */
       }}
     >
       {/* Header: order number + timer */}
@@ -588,7 +586,7 @@ function KitchenOrderTicket({
       </div>
 
       {/* Divider */}
-      <div style={{ height: '1px', background: 'var(--kds-border)', marginBottom: '12px' }} />
+      <div style={{ height: '2px', background: 'repeating-linear-gradient(90deg, var(--kds-border), var(--kds-border) 4px, transparent 4px, transparent 8px)', marginBottom: '16px' }} />
 
       {/* Item list */}
       <div style={{ maxHeight: '180px', overflowY: 'auto', marginBottom: '14px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -604,15 +602,15 @@ function KitchenOrderTicket({
             <span
               className="tabular-nums"
               style={{
-                fontFamily: 'var(--font-display)',
+                fontFamily: 'var(--font-body)',
                 fontWeight: 700,
-                fontSize: '15px',
-                color: ticketBorderColor,
+                fontSize: '16px',
+                color: 'var(--kds-text-primary)',
                 minWidth: '24px',
                 flexShrink: 0,
               }}
             >
-              {lineItem.orderLineItemQuantity}×
+              {lineItem.orderLineItemQuantity}x
             </span>
             <span
               style={{
