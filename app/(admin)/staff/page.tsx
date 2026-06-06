@@ -14,6 +14,7 @@ import EmptyStateDisplay from '@/components/shared/EmptyStateDisplay';
 import { emitToastNotification } from '@/components/shared/ToastNotification';
 
 function generateAvatarBackgroundColor(employeeFullName: string): string {
+  if (!employeeFullName) return '#6366F1';
   const colorOptions = ['#6366F1', '#EC4899', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6'];
   const nameCharCodeSum = employeeFullName
     .split('')
@@ -175,14 +176,16 @@ export default function AdminStaffPage(): React.JSX.Element {
                   }}
                 >
                   {employeeRecord.restaurantEmployeeFullName
-                    .split(' ')
-                    .map((namePart) => namePart[0])
-                    .join('')
-                    .toUpperCase()
-                    .slice(0, 2)}
+                    ? employeeRecord.restaurantEmployeeFullName
+                        .split(' ')
+                        .map((namePart) => namePart[0])
+                        .join('')
+                        .toUpperCase()
+                        .slice(0, 2)
+                    : '?'}
                 </div>
                 <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: '15px', color: 'var(--text-primary)' }}>
-                  {employeeRecord.restaurantEmployeeFullName}
+                  {employeeRecord.restaurantEmployeeFullName || 'Unknown'}
                 </span>
               </div>
 

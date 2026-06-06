@@ -25,13 +25,17 @@ export default function AdminPortalLayout({
   const clearAuthenticationSession = useAuthenticationStore(
     (authState) => authState.clearAuthenticationSession
   );
+  const _hasHydrated = useAuthenticationStore(
+    (authState) => authState._hasHydrated
+  );
 
   // Auth guard
   useEffect(() => {
+    if (!_hasHydrated) return;
     if (!authenticatedEmployee || authenticatedEmployee.role !== 'admin') {
       routerInstance.replace('/login');
     }
-  }, [authenticatedEmployee, routerInstance]);
+  }, [authenticatedEmployee, routerInstance, _hasHydrated]);
 
   // Inject tenant accent color
   useEffect(() => {
@@ -52,7 +56,7 @@ export default function AdminPortalLayout({
     routerInstance.replace('/login');
   }
 
-  if (!authenticatedEmployee || authenticatedEmployee.role !== 'admin') {
+  if (!_hasHydrated || !authenticatedEmployee || authenticatedEmployee.role !== 'admin') {
     return <div />;
   }
 

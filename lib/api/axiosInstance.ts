@@ -92,6 +92,9 @@ expediteHubAxiosInstance.interceptors.response.use(
         authenticatedEmployee: authStore.authenticatedEmployee as AuthenticatedEmployeeApiShape,
         restaurantTenant: authStore.restaurantTenant,
       });
+      if (typeof document !== 'undefined') {
+        document.cookie = `accessToken=${freshAccessToken}; path=/; max-age=${15 * 60}`;
+      }
       // Patch the auth header and retry the original request
       originalFailedRequest.headers.Authorization = `Bearer ${freshAccessToken}`;
       return expediteHubAxiosInstance(originalFailedRequest);

@@ -15,6 +15,8 @@ interface AuthenticationStoreState {
   refreshToken: string | null;
   authenticatedEmployee: AuthenticatedEmployeeApiShape | null;
   restaurantTenant: RestaurantTenantRecord | null;
+  _hasHydrated: boolean;
+  setHasHydrated: (state: boolean) => void;
   setAuthenticationSession: (sessionData: AuthenticationSessionData) => void;
   clearAuthenticationSession: () => void;
 }
@@ -26,6 +28,11 @@ export const useAuthenticationStore = create<AuthenticationStoreState>()(
       refreshToken: null,
       authenticatedEmployee: null,
       restaurantTenant: null,
+      _hasHydrated: false,
+
+      setHasHydrated: (state: boolean) => {
+        storeSet({ _hasHydrated: state });
+      },
 
       setAuthenticationSession: (sessionData: AuthenticationSessionData) => {
         storeSet({
@@ -51,6 +58,9 @@ export const useAuthenticationStore = create<AuthenticationStoreState>()(
     }),
     {
       name: 'expeditehub-auth-session',
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
       // Only persist tokens and basic employee info — no sensitive data beyond what's needed
       partialize: (authState) => ({
         accessToken: authState.accessToken,

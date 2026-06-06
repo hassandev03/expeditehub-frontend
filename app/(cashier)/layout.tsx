@@ -26,12 +26,16 @@ export default function CashierPortalLayout({
   const clearAuthenticationSession = useAuthenticationStore(
     (authState) => authState.clearAuthenticationSession
   );
+  const _hasHydrated = useAuthenticationStore(
+    (authState) => authState._hasHydrated
+  );
 
   useEffect(() => {
+    if (!_hasHydrated) return;
     if (!authenticatedEmployee || authenticatedEmployee.role !== 'cashier') {
       routerInstance.replace('/login');
     }
-  }, [authenticatedEmployee, routerInstance]);
+  }, [authenticatedEmployee, routerInstance, _hasHydrated]);
 
   useEffect(() => {
     const tenantBrandColor = restaurantTenant?.restaurantTenantBrandColor ?? '#1E6B6B';
@@ -56,7 +60,7 @@ export default function CashierPortalLayout({
     routerInstance.replace('/login');
   }
 
-  if (!authenticatedEmployee || authenticatedEmployee.role !== 'cashier') {
+  if (!_hasHydrated || !authenticatedEmployee || authenticatedEmployee.role !== 'cashier') {
     return <div />;
   }
 

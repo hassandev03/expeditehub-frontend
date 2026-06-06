@@ -25,12 +25,16 @@ export default function ChefPortalLayout({
   const clearAuthenticationSession = useAuthenticationStore(
     (authState) => authState.clearAuthenticationSession
   );
+  const _hasHydrated = useAuthenticationStore(
+    (authState) => authState._hasHydrated
+  );
 
   useEffect(() => {
+    if (!_hasHydrated) return;
     if (!authenticatedEmployee || authenticatedEmployee.role !== 'chef') {
       routerInstance.replace('/login');
     }
-  }, [authenticatedEmployee, routerInstance]);
+  }, [authenticatedEmployee, routerInstance, _hasHydrated]);
 
   useEffect(() => {
     const tenantBrandColor = restaurantTenant?.restaurantTenantBrandColor ?? '#1E6B6B';
@@ -55,7 +59,7 @@ export default function ChefPortalLayout({
     routerInstance.replace('/login');
   }
 
-  if (!authenticatedEmployee || authenticatedEmployee.role !== 'chef') {
+  if (!_hasHydrated || !authenticatedEmployee || authenticatedEmployee.role !== 'chef') {
     return <div />;
   }
 
