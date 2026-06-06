@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getActiveKitchenOrderList, patchUpdateKitchenOrderStatus } from '@/lib/api/orderApiClient';
+import { getActiveKitchenOrderList, patchUpdateKitchenOrderStatus, mapBackendOrder } from '@/lib/api/orderApiClient';
 import { getSocketClientInstance } from '@/lib/socket/socketClient';
 import { getRestaurantMenuItemList, patchToggleRestaurantMenuItemAvailability } from '@/lib/api/menuItemApiClient';
 import type { RestaurantOrderRecord, OrderStatusValue } from '@/lib/types/orderTypes';
@@ -55,8 +55,9 @@ export default function ChefKdsPage(): React.JSX.Element {
     const socketClientInstance = getSocketClientInstance();
     if (!socketClientInstance) return;
 
-    function handleNewOrderSocketEvent(incomingOrderPayload: RestaurantOrderRecord): void {
-      setKanbanOrderList((previousOrderList) => [incomingOrderPayload, ...previousOrderList]);
+    function handleNewOrderSocketEvent(incomingOrderPayload: any): void {
+      const mappedOrder = mapBackendOrder(incomingOrderPayload);
+      setKanbanOrderList((previousOrderList) => [mappedOrder, ...previousOrderList]);
     }
 
     function handleOrderDelayedSocketEvent(delayedOrderPayload: { orderId: string }): void {

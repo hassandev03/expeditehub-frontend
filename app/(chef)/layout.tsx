@@ -87,6 +87,7 @@ export default function ChefPortalLayout({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <img src="/logo.png" alt="ExpediteHub Logo" style={{ width: '32px', height: '32px', borderRadius: 'var(--radius-md)', objectFit: 'contain' }} />
           <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '16px', color: 'var(--kds-text-primary)' }}>
             {restaurantTenant?.restaurantTenantName ?? 'ExpediteHub'}
           </span>

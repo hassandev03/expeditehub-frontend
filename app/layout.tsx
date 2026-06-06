@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description:
     'Multi-tenant Kitchen Display and Ordering System. Manage your restaurant staff, menu, orders, and analytics in real time.',
   keywords: ['restaurant management', 'kitchen display system', 'KDS', 'POS', 'ordering system'],
+  icons: {
+    icon: '/logo.png',
+  },
 };
 
 interface RootLayoutProperties {
