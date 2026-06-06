@@ -76,7 +76,7 @@ export default function CashierPortalLayout({
     >
       <PortalTopBar
         restaurantTenantName={restaurantTenant?.restaurantTenantName ?? 'ExpediteHub'}
-        restaurantTenantLogoUrl={restaurantTenant?.restaurantTenantLogoUrl}
+        restaurantTenantLogoUrl="/logo.png"
         authenticatedEmployeeFullName={authenticatedEmployee.fullName}
         onLogoutButtonSelect={handleLogoutButtonSelect}
       />
