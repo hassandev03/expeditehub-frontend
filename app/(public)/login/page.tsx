@@ -86,22 +86,14 @@ export default function LoginPage(): React.JSX.Element {
                 gap: '10px',
               }}
             >
-              <div
-                style={{
-                  width: '36px',
-                  height: '36px',
-                  background: 'var(--tenant-accent)',
-                  borderRadius: 'var(--radius-sm)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 700,
-                  fontSize: '18px',
-                  color: '#FFFFFF',
-                }}
-              >
-                E
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.png"
+                alt="ExpediteHub Logo"
+                width={36}
+                height={36}
+                style={{ borderRadius: 'var(--radius-sm)', objectFit: 'contain' }}
+              />
               <span
                 style={{
                   fontWeight: 600,

@@ -119,13 +119,14 @@ export default function RegisterPage(): React.JSX.Element {
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-            <div
-              style={{
-                width: '32px', height: '32px', background: 'var(--tenant-accent)',
-                borderRadius: 'var(--radius-sm)', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', fontWeight: 700, fontSize: '16px', color: '#FFFFFF',
-              }}
-            >E</div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="ExpediteHub Logo"
+              width={32}
+              height={32}
+              style={{ borderRadius: 'var(--radius-sm)', objectFit: 'contain' }}
+            />
             <span style={{ fontWeight: 600, fontSize: '18px', color: 'var(--kds-text-primary)' }}>
               ExpediteHub
             </span>

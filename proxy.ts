@@ -81,5 +81,5 @@ export async function proxy(incomingNextRequest: NextRequest): Promise<NextRespo
 
 export const config = {
   // Run middleware on all routes except static files and Next.js internals
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|api/).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|api/|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|otf|eot)).*)']
 };
