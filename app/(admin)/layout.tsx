@@ -39,7 +39,7 @@ export default function AdminPortalLayout({
 
   // Inject tenant accent color
   useEffect(() => {
-    const tenantBrandColor = restaurantTenant?.restaurantTenantBrandColor ?? '#1E6B6B';
+    const tenantBrandColor = restaurantTenant?.restaurantTenantBrandColor ?? '#1B7A6D';
     document.documentElement.style.setProperty('--tenant-accent', tenantBrandColor);
     // Derive hover state: approximate darkening by adjusting
     document.documentElement.style.setProperty('--tenant-accent-hover', tenantBrandColor);
@@ -81,25 +81,53 @@ export default function AdminPortalLayout({
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            padding: '16px 32px',
+            padding: '12px 32px',
             borderBottom: '1px solid var(--border)',
             background: 'var(--surface-card)',
-            gap: '16px',
+            gap: '14px',
           }}
         >
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '14px',
-              color: 'var(--text-secondary)',
-            }}
-          >
-            {authenticatedEmployee.fullName}
-          </span>
+          {/* Avatar + name */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: 'var(--tenant-accent)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#FFFFFF',
+                fontFamily: 'var(--font-body)',
+                fontWeight: 600,
+                fontSize: '12px',
+                flexShrink: 0,
+              }}
+            >
+              {authenticatedEmployee.fullName
+                .split(' ')
+                .map((n) => n[0])
+                .join('')
+                .toUpperCase()
+                .slice(0, 2)}
+            </div>
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '14px',
+                fontWeight: 500,
+                color: 'var(--text-primary)',
+              }}
+            >
+              {authenticatedEmployee.fullName}
+            </span>
+          </div>
+
           <button
             onClick={handleLogoutButtonSelect}
             style={{
-              padding: '7px 16px',
+              padding: '6px 14px',
               borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border)',
               background: 'transparent',
@@ -108,6 +136,7 @@ export default function AdminPortalLayout({
               fontSize: '13px',
               fontWeight: 500,
               cursor: 'pointer',
+              transition: 'background 150ms',
             }}
           >
             Logout

@@ -138,7 +138,16 @@ export default function AdminMenuPage(): React.JSX.Element {
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
-                opacity: menuItemRecord.restaurantMenuItemIsAvailable ? 1 : 0.6,
+                opacity: menuItemRecord.restaurantMenuItemIsAvailable ? 1 : 0.55,
+                transition: 'box-shadow 200ms, transform 150ms',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow = 'var(--shadow-card-hover)';
+                (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow = 'var(--shadow-card)';
+                (e.currentTarget as HTMLElement).style.transform = 'none';
               }}
             >
               {/* Image area */}
@@ -167,15 +176,37 @@ export default function AdminMenuPage(): React.JSX.Element {
 
               {/* Card body */}
               <div style={{ padding: '14px', flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <p style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '15px', color: 'var(--text-primary)' }}>
-                  {menuItemRecord.restaurantMenuItemName}
-                </p>
-                <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  {menuItemRecord.restaurantMenuItemCategory}
-                </p>
-                <p className="tabular-nums" style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '18px', color: 'var(--text-primary)', marginTop: '4px' }}>
-                  ₨{menuItemRecord.restaurantMenuItemPrice.toFixed(2)}
-                </p>
+                  <p style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '15px', color: 'var(--text-primary)' }}>
+                    {menuItemRecord.restaurantMenuItemName}
+                  </p>
+                  <p style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '12px',
+                    color: 'var(--text-secondary)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    marginTop: '2px',
+                  }}>
+                    {menuItemRecord.restaurantMenuItemCategory}
+                  </p>
+                  {menuItemRecord.restaurantMenuItemDescription && (
+                    <p style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '12px',
+                      color: 'var(--text-secondary)',
+                      marginTop: '6px',
+                      lineHeight: 1.45,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}>
+                      {menuItemRecord.restaurantMenuItemDescription}
+                    </p>
+                  )}
+                  <p className="tabular-nums" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '17px', color: 'var(--tenant-accent)', marginTop: '8px' }}>
+                    ₨{menuItemRecord.restaurantMenuItemPrice.toFixed(2)}
+                  </p>
 
                 {/* Bottom row: availability + actions */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '10px' }}>

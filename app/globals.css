@@ -18,24 +18,24 @@
    ───────────────────────────────────────── */
 :root {
   /* ─── Tenant Injection (set post-auth via JS) ─── */
-  --tenant-accent:         #1E6B6B;
-  --tenant-accent-hover:   #185A5A;
+  --tenant-accent:         #1B7A6D;
+  --tenant-accent-hover:   #156B5F;
 
   /* ─── Light Theme (Admin + Cashier) ─── */
   --bg-main:               #F7F8F6;
   --surface-card:          #FFFFFF;
-  --surface-secondary:     #F0F2F0;
+  --surface-secondary:     #EDF0EE;
   --nav-surface:           #111C1A;
   --text-primary:          #111827;
   --text-secondary:        #6B7280;
   --text-inverted:         #F7F8F6;
   --border:                #E4E7E4;
 
-  /* ─── Dark Theme (KDS / Chef Portal) ─── */
+  /* ─── Dark Theme (KDS / Chef Portal — default, overridden to light in layout) ─── */
   --kds-bg:                #0C1110;
-  --kds-surface:           #182020;
-  --kds-surface-raised:    #243030;
-  --kds-text-primary:      #EDF2F0;
+  --kds-surface:           #1A2525;
+  --kds-surface-raised:    #263535;
+  --kds-text-primary:      #EFF4F2;
   --kds-text-secondary:    #8A9FA0;
   --kds-border:            #2C3D3D;
 
@@ -59,6 +59,8 @@
   /* ─── Shadows ─── */
   --shadow-card:           0 1px 3px rgba(17, 28, 26, 0.06),
                            0 4px 8px rgba(17, 28, 26, 0.04);
+  --shadow-card-hover:     0 4px 16px rgba(17, 28, 26, 0.12),
+                           0 1px 4px rgba(17, 28, 26, 0.06);
   --shadow-float:          0 8px 24px rgba(17, 28, 26, 0.10);
   --shadow-alert:          0 8px 16px rgba(239, 68, 68, 0.15);
 
@@ -170,6 +172,18 @@ body {
   100% { transform: scale(1); }
 }
 
+/* Description expand slide down */
+@keyframes expand-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade in */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 /* ─────────────────────────────────────────
    Utility Classes
    ───────────────────────────────────────── */
@@ -212,6 +226,14 @@ body {
 
 .animate-delayed-pulse {
   animation: pulse-delayed-border 2s ease-in-out infinite;
+}
+
+.animate-expand-down {
+  animation: expand-down 200ms ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in 200ms ease-out both;
 }
 
 /* ─────────────────────────────────────────

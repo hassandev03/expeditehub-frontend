@@ -25,6 +25,8 @@ export default function KpiSummaryCard({
         padding: '24px',
         flex: 1,
         minWidth: 0,
+        borderLeft: `4px solid ${kpiCardAccentColor}`,
+        transition: 'box-shadow 200ms',
       }}
     >
       {/* Label row */}

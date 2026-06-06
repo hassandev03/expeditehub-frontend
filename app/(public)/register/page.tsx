@@ -23,6 +23,7 @@ export default function RegisterPage(): React.JSX.Element {
   const [adminPasswordInputValue, setAdminPasswordInputValue] = useState('');
   const [isRegistrationRequestPending, setIsRegistrationRequestPending] = useState(false);
   const [registrationErrorMessage, setRegistrationErrorMessage] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   async function handleRegistrationFormSubmit(
     formSubmitEvent: React.FormEvent<HTMLFormElement>
@@ -82,32 +83,43 @@ export default function RegisterPage(): React.JSX.Element {
     }
   }
 
-  const sharedInputStyle: React.CSSProperties = {
-    height: '48px',
+  const inputStyle: React.CSSProperties = {
+    height: '46px',
     padding: '0 14px',
     borderRadius: 'var(--radius-md)',
-    border: '1px solid var(--kds-border)',
-    background: 'var(--kds-bg)',
-    color: 'var(--kds-text-primary)',
+    border: '1.5px solid var(--border)',
+    background: 'var(--surface-secondary)',
+    color: '#111827',
     fontFamily: 'var(--font-body)',
-    fontSize: '15px',
+    fontSize: '14px',
     outline: 'none',
     width: '100%',
+    transition: 'border-color 150ms, background 150ms',
   };
 
-  const sharedLabelStyle: React.CSSProperties = {
-    fontSize: '13px',
-    fontWeight: 500,
-    color: 'var(--kds-text-secondary)',
+  const labelStyle: React.CSSProperties = {
+    fontSize: '12px',
+    fontWeight: 600,
+    color: '#6B7280',
     textTransform: 'uppercase',
-    letterSpacing: '0.5px',
+    letterSpacing: '0.7px',
   };
+
+  function handleInputFocus(e: React.FocusEvent<HTMLInputElement>): void {
+    e.target.style.borderColor = 'var(--tenant-accent)';
+    e.target.style.background = '#FFFFFF';
+  }
+
+  function handleInputBlur(e: React.FocusEvent<HTMLInputElement>): void {
+    e.target.style.borderColor = 'var(--border)';
+    e.target.style.background = 'var(--surface-secondary)';
+  }
 
   return (
     <main
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0C1110 0%, #111C1A 100%)',
+        background: 'linear-gradient(135deg, #0D1312 0%, #111C1A 100%)',
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'center',
@@ -115,7 +127,18 @@ export default function RegisterPage(): React.JSX.Element {
         fontFamily: 'var(--font-body)',
       }}
     >
-      <div style={{ width: '100%', maxWidth: '540px' }}>
+      {/* Subtle grid overlay */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundImage: `linear-gradient(rgba(27, 122, 109, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(27, 122, 109, 0.04) 1px, transparent 1px)`,
+          backgroundSize: '48px 48px',
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div style={{ width: '100%', maxWidth: '540px', position: 'relative' }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
@@ -127,118 +150,213 @@ export default function RegisterPage(): React.JSX.Element {
               height={32}
               style={{ borderRadius: 'var(--radius-sm)', objectFit: 'contain' }}
             />
-            <span style={{ fontWeight: 600, fontSize: '18px', color: 'var(--kds-text-primary)' }}>
+            <span style={{ fontWeight: 700, fontSize: '20px', color: '#FFFFFF', letterSpacing: '-0.3px' }}>
               ExpediteHub
             </span>
           </Link>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px', marginTop: '6px' }}>
+            Restaurant Operations Platform
+          </p>
         </div>
 
+        {/* Card */}
         <div
           style={{
-            background: 'var(--kds-surface)',
+            background: '#FFFFFF',
             borderRadius: 'var(--radius-lg)',
-            border: '1px solid var(--kds-border)',
-            padding: '36px',
+            overflow: 'hidden',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.3)',
           }}
         >
-          <h1 style={{ fontWeight: 600, fontSize: '22px', color: 'var(--kds-text-primary)', marginBottom: '6px' }}>
-            Register your restaurant
-          </h1>
-          <p style={{ fontSize: '14px', color: 'var(--kds-text-secondary)', marginBottom: '28px' }}>
-            Create your tenant workspace and your first admin account.
-          </p>
+          {/* Accent strip at top */}
+          <div style={{ height: '4px', background: 'var(--tenant-accent)' }} />
 
-          <form onSubmit={handleRegistrationFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-
-            {/* ─ Restaurant Info ─ */}
-            <p style={{ fontWeight: 600, fontSize: '13px', color: 'var(--tenant-accent)', textTransform: 'uppercase', letterSpacing: '1px' }}>
-              Restaurant Details
+          <div style={{ padding: '32px 36px 36px' }}>
+            <h1 style={{ fontWeight: 700, fontSize: '22px', color: '#111827', marginBottom: '4px', letterSpacing: '-0.3px' }}>
+              Register your restaurant
+            </h1>
+            <p style={{ fontSize: '14px', color: '#6B7280', marginBottom: '28px' }}>
+              Create your tenant workspace and your first admin account.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label htmlFor="register-restaurant-name" style={sharedLabelStyle}>Restaurant Name *</label>
-              <input id="register-restaurant-name" type="text" required value={tenantNameInputValue}
-                onChange={(ev) => setTenantNameInputValue(ev.target.value)}
-                placeholder="The Golden Griddle" style={sharedInputStyle} />
-            </div>
+            <form onSubmit={handleRegistrationFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label htmlFor="register-restaurant-address" style={sharedLabelStyle}>Address *</label>
-              <input id="register-restaurant-address" type="text" required value={tenantAddressInputValue}
-                onChange={(ev) => setTenantAddressInputValue(ev.target.value)}
-                placeholder="123 Main Street, City" style={sharedInputStyle} />
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label htmlFor="register-contact-email" style={sharedLabelStyle}>Contact Email *</label>
-                <input id="register-contact-email" type="email" required value={tenantContactEmailInputValue}
-                  onChange={(ev) => setTenantContactEmailInputValue(ev.target.value)}
-                  placeholder="hello@restaurant.com" style={sharedInputStyle} />
+              {/* ── Restaurant Details section ── */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                margin: '4px 0 2px',
+              }}>
+                <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
+                <span style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: 'var(--tenant-accent)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  flexShrink: 0,
+                }}>
+                  Restaurant Details
+                </span>
+                <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label htmlFor="register-cuisine-type" style={sharedLabelStyle}>Cuisine Type</label>
-                <input id="register-cuisine-type" type="text" value={tenantCuisineTypeInputValue}
-                  onChange={(ev) => setTenantCuisineTypeInputValue(ev.target.value)}
-                  placeholder="Italian, Burgers…" style={sharedInputStyle} />
-              </div>
-            </div>
 
-            {/* ─ Admin Account ─ */}
-            <p style={{ fontWeight: 600, fontSize: '13px', color: 'var(--tenant-accent)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '8px' }}>
-              Admin Account
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label htmlFor="register-restaurant-name" style={labelStyle}>Restaurant Name *</label>
+                <input id="register-restaurant-name" type="text" required value={tenantNameInputValue}
+                  onChange={(ev) => setTenantNameInputValue(ev.target.value)}
+                  placeholder="The Golden Griddle" style={inputStyle}
+                  onFocus={handleInputFocus} onBlur={handleInputBlur} />
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label htmlFor="register-restaurant-address" style={labelStyle}>Address *</label>
+                <input id="register-restaurant-address" type="text" required value={tenantAddressInputValue}
+                  onChange={(ev) => setTenantAddressInputValue(ev.target.value)}
+                  placeholder="123 Main Street, City" style={inputStyle}
+                  onFocus={handleInputFocus} onBlur={handleInputBlur} />
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <label htmlFor="register-contact-email" style={labelStyle}>Contact Email *</label>
+                  <input id="register-contact-email" type="email" required value={tenantContactEmailInputValue}
+                    onChange={(ev) => setTenantContactEmailInputValue(ev.target.value)}
+                    placeholder="hello@restaurant.com" style={inputStyle}
+                    onFocus={handleInputFocus} onBlur={handleInputBlur} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <label htmlFor="register-cuisine-type" style={labelStyle}>Cuisine Type</label>
+                  <input id="register-cuisine-type" type="text" value={tenantCuisineTypeInputValue}
+                    onChange={(ev) => setTenantCuisineTypeInputValue(ev.target.value)}
+                    placeholder="Italian, Burgers…" style={inputStyle}
+                    onFocus={handleInputFocus} onBlur={handleInputBlur} />
+                </div>
+              </div>
+
+              {/* ── Admin Account section ── */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                margin: '8px 0 2px',
+              }}>
+                <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
+                <span style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: 'var(--tenant-accent)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  flexShrink: 0,
+                }}>
+                  Admin Account
+                </span>
+                <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label htmlFor="register-admin-name" style={labelStyle}>Full Name *</label>
+                <input id="register-admin-name" type="text" required value={adminFullNameInputValue}
+                  onChange={(ev) => setAdminFullNameInputValue(ev.target.value)}
+                  placeholder="Jane Smith" style={inputStyle}
+                  onFocus={handleInputFocus} onBlur={handleInputBlur} />
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <label htmlFor="register-admin-email" style={labelStyle}>Admin Email *</label>
+                  <input id="register-admin-email" type="email" required value={adminEmailInputValue}
+                    onChange={(ev) => setAdminEmailInputValue(ev.target.value)}
+                    placeholder="admin@restaurant.com" style={inputStyle}
+                    onFocus={handleInputFocus} onBlur={handleInputBlur} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <label htmlFor="register-admin-password" style={labelStyle}>Password * (min 6)</label>
+                  <div style={{ position: 'relative' }}>
+                    <input id="register-admin-password"
+                      type={isPasswordVisible ? 'text' : 'password'}
+                      required value={adminPasswordInputValue}
+                      onChange={(ev) => setAdminPasswordInputValue(ev.target.value)}
+                      placeholder="••••••••"
+                      style={{ ...inputStyle, paddingRight: '42px' }}
+                      onFocus={handleInputFocus} onBlur={handleInputBlur} />
+                    <button
+                      type="button"
+                      onClick={() => setIsPasswordVisible((v) => !v)}
+                      aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
+                      style={{
+                        position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)',
+                        background: 'transparent', border: 'none', cursor: 'pointer',
+                        color: '#9CA3AF', padding: '4px', display: 'flex', alignItems: 'center',
+                      }}
+                    >
+                      {isPasswordVisible ? (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                          <line x1="1" y1="1" x2="23" y2="23" />
+                        </svg>
+                      ) : (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                          <circle cx="12" cy="12" r="3" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {registrationErrorMessage && (
+                <div style={{
+                  fontSize: '13px', color: '#DC2626',
+                  background: '#FEF2F2',
+                  padding: '10px 14px',
+                  borderRadius: 'var(--radius-md)',
+                  borderLeft: '3px solid #DC2626',
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ flexShrink: 0 }}>
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor"/>
+                  </svg>
+                  {registrationErrorMessage}
+                </div>
+              )}
+
+              <button
+                id="register-submit-button"
+                type="submit"
+                disabled={isRegistrationRequestPending}
+                style={{
+                  height: '48px',
+                  background: 'var(--tenant-accent)',
+                  color: '#FFFFFF',
+                  borderRadius: 'var(--radius-md)',
+                  border: 'none',
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 700,
+                  fontSize: '15px',
+                  cursor: isRegistrationRequestPending ? 'not-allowed' : 'pointer',
+                  opacity: isRegistrationRequestPending ? 0.7 : 1,
+                  marginTop: '8px',
+                  transition: 'opacity 150ms',
+                  letterSpacing: '0.2px',
+                }}
+              >
+                {isRegistrationRequestPending ? 'Registering…' : 'Register Restaurant'}
+              </button>
+            </form>
+
+            <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '14px', color: '#6B7280' }}>
+              Already registered?{' '}
+              <Link href="/login" style={{ color: 'var(--tenant-accent)', textDecoration: 'none', fontWeight: 600 }}>
+                Sign in
+              </Link>
             </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label htmlFor="register-admin-name" style={sharedLabelStyle}>Full Name *</label>
-              <input id="register-admin-name" type="text" required value={adminFullNameInputValue}
-                onChange={(ev) => setAdminFullNameInputValue(ev.target.value)}
-                placeholder="Jane Smith" style={sharedInputStyle} />
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label htmlFor="register-admin-email" style={sharedLabelStyle}>Admin Email *</label>
-                <input id="register-admin-email" type="email" required value={adminEmailInputValue}
-                  onChange={(ev) => setAdminEmailInputValue(ev.target.value)}
-                  placeholder="admin@restaurant.com" style={sharedInputStyle} />
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <label htmlFor="register-admin-password" style={sharedLabelStyle}>Password * (min 6)</label>
-                <input id="register-admin-password" type="password" required value={adminPasswordInputValue}
-                  onChange={(ev) => setAdminPasswordInputValue(ev.target.value)}
-                  placeholder="••••••••" style={sharedInputStyle} />
-              </div>
-            </div>
-
-            {registrationErrorMessage && (
-              <p style={{ fontSize: '14px', color: '#EF4444', background: 'rgba(239, 68, 68, 0.1)', padding: '10px 14px', borderRadius: 'var(--radius-md)', borderLeft: '3px solid #EF4444' }}>
-                {registrationErrorMessage}
-              </p>
-            )}
-
-            <button
-              id="register-submit-button"
-              type="submit"
-              disabled={isRegistrationRequestPending}
-              style={{
-                height: '48px', background: 'var(--tenant-accent)', color: '#FFFFFF',
-                borderRadius: 'var(--radius-md)', border: 'none',
-                fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '15px',
-                cursor: isRegistrationRequestPending ? 'not-allowed' : 'pointer',
-                opacity: isRegistrationRequestPending ? 0.7 : 1, marginTop: '8px',
-              }}
-            >
-              {isRegistrationRequestPending ? 'Registering…' : 'Register Restaurant'}
-            </button>
-          </form>
-
-          <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '14px', color: 'var(--kds-text-secondary)' }}>
-            Already registered?{' '}
-            <Link href="/login" style={{ color: 'var(--tenant-accent)', textDecoration: 'none', fontWeight: 500 }}>
-              Sign in
-            </Link>
-          </p>
+          </div>
         </div>
       </div>
     </main>

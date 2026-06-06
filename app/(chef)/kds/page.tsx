@@ -25,6 +25,12 @@ const orderStatusColumnCountBadgeColorMap: Record<string, string> = {
   Ready:     'var(--status-ready)',
 };
 
+const columnHeaderAccentColorMap: Record<string, string> = {
+  Received:  'rgba(59, 130, 246, 0.12)',
+  Preparing: 'rgba(245, 158, 11, 0.12)',
+  Ready:     'rgba(16, 185, 129, 0.12)',
+};
+
 export default function ChefKdsPage(): React.JSX.Element {
   const { data: initialActiveOrderData, isLoading: isInitialOrderDataLoading } = useQuery({
     queryKey: ['orders', 'active'],
@@ -126,18 +132,31 @@ export default function ChefKdsPage(): React.JSX.Element {
         flexDirection: 'column',
         height: '100%',
         overflow: 'hidden',
+        background: 'var(--kds-bg)',
       }}
     >
-      {/* 86 Item button in a sub-header */}
+      {/* Sub-header: 86 Item action */}
       <div
         style={{
-          padding: '8px 24px',
+          padding: '8px 20px',
           borderBottom: '1px solid var(--kds-border)',
           display: 'flex',
-          justifyContent: 'flex-end',
+          alignItems: 'center',
+          justifyContent: 'space-between',
           flexShrink: 0,
+          background: 'var(--kds-surface-raised)',
         }}
       >
+        <span style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '12px',
+          fontWeight: 500,
+          color: 'var(--kds-text-secondary)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.8px',
+        }}>
+          Kitchen Display System
+        </span>
         <button
           onClick={() => setIsEightySixModalOpen(true)}
           style={{
@@ -155,9 +174,10 @@ export default function ChefKdsPage(): React.JSX.Element {
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
+            transition: 'background 150ms, color 150ms',
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
           </svg>
           86 Item
@@ -191,29 +211,37 @@ export default function ChefKdsPage(): React.JSX.Element {
               {/* Column header */}
               <div
                 style={{
-                  padding: '12px 16px',
+                  padding: '14px 16px',
                   borderBottom: '1px solid var(--kds-border)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  position: 'sticky',
-                  top: 0,
-                  background: 'var(--kds-bg)',
+                  background: columnHeaderAccentColorMap[columnStatusValue],
                   flexShrink: 0,
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: 500,
-                    fontSize: '12px',
-                    color: 'var(--kds-text-secondary)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                  }}
-                >
-                  {columnStatusValue}
-                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  {/* Status dot */}
+                  <div style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: orderStatusColumnCountBadgeColorMap[columnStatusValue],
+                    flexShrink: 0,
+                  }} />
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontWeight: 600,
+                      fontSize: '12px',
+                      color: 'var(--kds-text-primary)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1.2px',
+                    }}
+                  >
+                    {columnStatusValue}
+                  </span>
+                </div>
                 <span
                   style={{
                     fontFamily: 'var(--font-display)',
@@ -239,7 +267,7 @@ export default function ChefKdsPage(): React.JSX.Element {
                   padding: '12px',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '12px',
+                  gap: '10px',
                 }}
               >
                 {isInitialOrderDataLoading ? (
@@ -248,9 +276,27 @@ export default function ChefKdsPage(): React.JSX.Element {
                     <LoadingSkeleton skeletonHeight="140px" skeletonBorderRadius="var(--radius-md)" />
                   </>
                 ) : columnOrderList.length === 0 ? (
-                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--kds-text-secondary)', textAlign: 'center', marginTop: '24px' }}>
-                    {columnStatusValue === 'Ready' ? 'All orders clear.' : 'No orders.'}
-                  </p>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: '40px',
+                    gap: '10px',
+                    opacity: 0.5,
+                  }}>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--kds-text-secondary)" strokeWidth="1.5">
+                      {columnStatusValue === 'Ready'
+                        ? <><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></>
+                        : columnStatusValue === 'Preparing'
+                        ? <><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>
+                        : <><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></>
+                      }
+                    </svg>
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--kds-text-secondary)', textAlign: 'center' }}>
+                      {columnStatusValue === 'Ready' ? 'All orders clear.' : `No ${columnStatusValue.toLowerCase()} orders.`}
+                    </p>
+                  </div>
                 ) : (
                   columnOrderList.map((orderRecord) => {
                     const isTicketDelayed = delayedOrderIdentifierSet.has(
@@ -284,45 +330,94 @@ export default function ChefKdsPage(): React.JSX.Element {
       {isEightySixModalOpen && (
         <div
           style={{
-            position: 'fixed', inset: 0, background: 'rgba(12, 17, 16, 0.7)',
+            position: 'fixed', inset: 0,
+            background: 'rgba(28, 25, 18, 0.5)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000,
+            backdropFilter: 'blur(2px)',
           }}
           onClick={() => setIsEightySixModalOpen(false)}
         >
           <div
             className="animate-modal-entrance"
             style={{
-              background: 'var(--kds-surface-raised)', borderRadius: 'var(--radius-lg)',
-              boxShadow: 'var(--shadow-float)', padding: '28px', width: '440px',
-              maxWidth: '95vw', maxHeight: '80vh', display: 'flex', flexDirection: 'column',
+              background: 'var(--kds-surface)',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: '0 16px 48px rgba(0,0,0,0.15)',
+              padding: '28px',
+              width: '460px',
+              maxWidth: '95vw',
+              maxHeight: '80vh',
+              display: 'flex',
+              flexDirection: 'column',
+              border: '1px solid var(--kds-border)',
             }}
             onClick={(mouseEvent) => mouseEvent.stopPropagation()}
           >
-            <h2 style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '18px', color: 'var(--kds-text-primary)', marginBottom: '20px' }}>
-              Mark Item Unavailable
-            </h2>
-            <div style={{ overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+              <div style={{
+                width: '36px', height: '36px',
+                borderRadius: 'var(--radius-md)',
+                background: 'rgba(239,68,68,0.1)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2.5">
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </div>
+              <div>
+                <h2 style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '17px', color: 'var(--kds-text-primary)' }}>
+                  Mark Item Unavailable
+                </h2>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--kds-text-secondary)', marginTop: '2px' }}>
+                  Item will be 86'd across all active cashier sessions.
+                </p>
+              </div>
+            </div>
+
+            <div style={{ overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '2px', flex: 1 }}>
               {availableMenuItemList.length === 0 ? (
-                <p style={{ color: 'var(--kds-text-secondary)', fontSize: '14px' }}>No available items.</p>
+                <p style={{ color: 'var(--kds-text-secondary)', fontSize: '14px', textAlign: 'center', padding: '20px 0' }}>
+                  No available items.
+                </p>
               ) : (
                 availableMenuItemList.map((menuItemRecord) => (
                   <div
                     key={menuItemRecord.restaurantMenuItemIdentifier}
                     style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      padding: '12px 0', borderBottom: '1px solid var(--kds-border)',
+                      padding: '12px 14px',
+                      borderRadius: 'var(--radius-md)',
+                      border: '1px solid var(--kds-border)',
+                      marginBottom: '4px',
+                      background: 'var(--kds-surface-raised)',
                     }}
                   >
-                    <span style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: 'var(--kds-text-primary)' }}>
-                      {menuItemRecord.restaurantMenuItemName}
-                    </span>
+                    <div>
+                      <span style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: 500, color: 'var(--kds-text-primary)' }}>
+                        {menuItemRecord.restaurantMenuItemName}
+                      </span>
+                      <span style={{
+                        display: 'block',
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '12px',
+                        color: 'var(--kds-text-secondary)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        marginTop: '2px',
+                      }}>
+                        {menuItemRecord.restaurantMenuItemCategory}
+                      </span>
+                    </div>
                     <button
                       onClick={() => handleToggleMenuItemAvailabilityFromModal(menuItemRecord.restaurantMenuItemIdentifier)}
                       style={{
-                        height: '32px', padding: '0 14px',
+                        height: '34px', padding: '0 16px',
                         background: '#EF4444', color: '#FFFFFF',
                         borderRadius: 'var(--radius-md)', border: 'none',
-                        fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: '12px', cursor: 'pointer',
+                        fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '12px',
+                        cursor: 'pointer',
+                        letterSpacing: '0.5px',
                       }}
                     >
                       86 It
@@ -331,9 +426,22 @@ export default function ChefKdsPage(): React.JSX.Element {
                 ))
               )}
             </div>
+
             <button
               onClick={() => setIsEightySixModalOpen(false)}
-              style={{ marginTop: '20px', height: '40px', background: 'var(--kds-surface)', border: '1px solid var(--kds-border)', borderRadius: 'var(--radius-md)', color: 'var(--kds-text-secondary)', fontFamily: 'var(--font-body)', fontSize: '14px', cursor: 'pointer' }}
+              style={{
+                marginTop: '16px',
+                height: '42px',
+                background: 'var(--kds-surface-raised)',
+                border: '1px solid var(--kds-border)',
+                borderRadius: 'var(--radius-md)',
+                color: 'var(--kds-text-secondary)',
+                fontFamily: 'var(--font-body)',
+                fontSize: '14px',
+                fontWeight: 500,
+                cursor: 'pointer',
+                transition: 'background 150ms',
+              }}
             >
               Close
             </button>
@@ -410,36 +518,58 @@ function KitchenOrderTicket({
         background: 'var(--kds-surface)',
         borderRadius: 'var(--radius-md)',
         borderLeft: `4px solid ${ticketBorderColor}`,
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.30)',
+        boxShadow: '0 1px 4px rgba(28, 25, 18, 0.08), 0 4px 12px rgba(28, 25, 18, 0.06)',
         padding: '16px',
         opacity: orderRecord.restaurantOrderStatus === 'Ready' ? 0.85 : 1,
         animation: isTicketDelayed
           ? 'pulse-delayed-border 2s ease-in-out infinite'
           : undefined,
+        border: `1px solid var(--kds-border)`,
+        borderLeftWidth: '4px',
+        borderLeftColor: ticketBorderColor,
       }}
     >
       {/* Header: order number + timer */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span
+            className="tabular-nums"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 700,
+              fontSize: '40px',
+              color: 'var(--kds-text-primary)',
+              lineHeight: 1,
+            }}
+          >
+            #{orderRecord.restaurantOrderNumber}
+          </span>
+          {(isTicketDelayed || elapsedMinutes >= 15) && orderRecord.restaurantOrderStatus !== 'Ready' && (
+            <span style={{
+              background: '#EF4444',
+              color: '#FFFFFF',
+              fontSize: '10px',
+              fontWeight: 700,
+              padding: '3px 7px',
+              borderRadius: 'var(--radius-sm)',
+              letterSpacing: '0.5px',
+              textTransform: 'uppercase',
+              alignSelf: 'flex-start',
+              marginTop: '4px',
+            }}>
+              LATE
+            </span>
+          )}
+        </div>
         <span
           className="tabular-nums"
           style={{
             fontFamily: 'var(--font-display)',
-            fontWeight: 700,
-            fontSize: '40px',
-            color: 'var(--kds-text-primary)',
-            lineHeight: 1,
-          }}
-        >
-          #{orderRecord.restaurantOrderNumber}
-        </span>
-        <span
-          className="tabular-nums"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 500,
-            fontSize: '16px',
+            fontWeight: 600,
+            fontSize: '18px',
             color: timerTextColor,
-            marginTop: '6px',
+            marginTop: '4px',
+            letterSpacing: '0.5px',
           }}
         >
           {elapsedTimeDisplayString}
@@ -450,19 +580,41 @@ function KitchenOrderTicket({
       <div style={{ height: '1px', background: 'var(--kds-border)', marginBottom: '12px' }} />
 
       {/* Item list */}
-      <div style={{ maxHeight: '180px', overflowY: 'auto', marginBottom: '14px' }}>
+      <div style={{ maxHeight: '180px', overflowY: 'auto', marginBottom: '14px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
         {orderRecord.restaurantOrderLineItems.map((lineItem, lineItemIndex) => (
-          <p
+          <div
             key={lineItemIndex}
             style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '16px',
-              color: 'var(--kds-text-primary)',
-              marginBottom: '4px',
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: '8px',
             }}
           >
-            {lineItem.orderLineItemQuantity}× {lineItem.orderLineItemName}
-          </p>
+            <span
+              className="tabular-nums"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontWeight: 700,
+                fontSize: '15px',
+                color: ticketBorderColor,
+                minWidth: '24px',
+                flexShrink: 0,
+              }}
+            >
+              {lineItem.orderLineItemQuantity}×
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '16px',
+                fontWeight: 500,
+                color: 'var(--kds-text-primary)',
+                lineHeight: 1.3,
+              }}
+            >
+              {lineItem.orderLineItemName}
+            </span>
+          </div>
         ))}
       </div>
 
@@ -478,20 +630,43 @@ function KitchenOrderTicket({
           disabled={isStatusUpdatePending}
           style={{
             width: '100%',
-            height: '48px',
+            height: '46px',
             background: actionButtonBackgroundColor,
             color: '#FFFFFF',
             borderRadius: 'var(--radius-md)',
             border: 'none',
             fontFamily: 'var(--font-body)',
-            fontWeight: 500,
+            fontWeight: 600,
             fontSize: '14px',
             cursor: isStatusUpdatePending ? 'not-allowed' : 'pointer',
             opacity: isStatusUpdatePending ? 0.7 : 1,
+            transition: 'opacity 120ms, transform 80ms',
+            letterSpacing: '0.3px',
           }}
         >
           {isStatusUpdatePending ? 'Updating…' : actionButtonLabel}
         </button>
+      )}
+
+      {/* Ready state: no button, just passive indicator */}
+      {orderRecord.restaurantOrderStatus === 'Ready' && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '6px',
+          padding: '10px',
+          background: 'rgba(16, 185, 129, 0.08)',
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid rgba(16, 185, 129, 0.2)',
+        }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--status-ready)" strokeWidth="2.5">
+            <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+          </svg>
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 600, color: 'var(--status-ready)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            Awaiting Pickup
+          </span>
+        </div>
       )}
     </div>
   );

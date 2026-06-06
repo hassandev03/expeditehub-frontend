@@ -146,7 +146,7 @@ export default function AdminNavigationSidebar({
       </div>
 
       {/* Divider */}
-      <div style={{ height: '1px', background: '#2C3D3D', margin: '0 20px 12px' }} />
+      <div style={{ height: '1px', background: 'rgba(247, 248, 246, 0.08)', margin: '0 20px 12px' }} />
 
       {/* Navigation items */}
       <nav style={{ flex: 1, padding: '0 8px' }}>
@@ -164,28 +164,29 @@ export default function AdminNavigationSidebar({
                 gap: '12px',
                 padding: '10px 12px',
                 borderRadius: 'var(--radius-md)',
-                marginBottom: '2px',
+                marginBottom: '3px',
                 textDecoration: 'none',
                 color: isCurrentlyActiveRoute
-                  ? 'var(--text-inverted)'
-                  : 'rgba(247, 248, 246, 0.6)',
+                  ? '#FFFFFF'
+                  : 'rgba(247, 248, 246, 0.55)',
                 background: isCurrentlyActiveRoute
-                  ? 'rgba(30, 107, 107, 0.15)'
+                  ? 'rgba(27, 122, 109, 0.22)'
                   : 'transparent',
                 borderLeft: isCurrentlyActiveRoute
                   ? '3px solid var(--tenant-accent)'
                   : '3px solid transparent',
                 fontFamily: 'var(--font-body)',
-                fontWeight: 500,
+                fontWeight: isCurrentlyActiveRoute ? 600 : 500,
                 fontSize: '14px',
-                transition: 'color 120ms, background 120ms',
+                transition: 'color 160ms, background 160ms, font-weight 160ms',
               }}
             >
               <span
                 style={{
-                  opacity: isCurrentlyActiveRoute ? 1 : 0.6,
+                  opacity: isCurrentlyActiveRoute ? 1 : 0.5,
                   display: 'flex',
                   alignItems: 'center',
+                  transition: 'opacity 160ms',
                 }}
               >
                 {navigationItem.navigationItemIcon}
@@ -195,6 +196,22 @@ export default function AdminNavigationSidebar({
           );
         })}
       </nav>
+
+      {/* Sidebar footer */}
+      <div style={{
+        padding: '16px 20px',
+        borderTop: '1px solid rgba(247, 248, 246, 0.06)',
+        flexShrink: 0,
+      }}>
+        <p style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '11px',
+          color: 'rgba(247, 248, 246, 0.25)',
+          letterSpacing: '0.3px',
+        }}>
+          ExpediteHub · Admin Portal
+        </p>
+      </div>
     </aside>
   );
 }

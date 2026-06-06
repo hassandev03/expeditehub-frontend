@@ -13,19 +13,35 @@ export default function LandingPage(): React.JSX.Element {
     <main
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0C1110 0%, #111C1A 50%, #0C1110 100%)',
-        color: 'var(--kds-text-primary)',
+        background: 'linear-gradient(160deg, #0D1312 0%, #111C1A 60%, #0C1110 100%)',
+        color: '#EFF4F2',
         fontFamily: 'var(--font-body)',
+        overflowX: 'hidden',
       }}
     >
+      {/* Grid background overlay */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundImage: `linear-gradient(rgba(27, 122, 109, 0.05) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(27, 122, 109, 0.05) 1px, transparent 1px)`,
+          backgroundSize: '56px 56px',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+
       {/* ── Navigation Bar ── */}
       <nav
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '20px 48px',
-          borderBottom: '1px solid var(--kds-border)',
+          padding: '18px 48px',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          position: 'relative',
+          zIndex: 10,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -37,31 +53,22 @@ export default function LandingPage(): React.JSX.Element {
             height={32}
             style={{ borderRadius: 'var(--radius-sm)', objectFit: 'contain' }}
           />
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 600,
-              fontSize: '18px',
-              color: 'var(--kds-text-primary)',
-              letterSpacing: '-0.3px',
-            }}
-          >
+          <span style={{ fontWeight: 700, fontSize: '18px', color: '#FFFFFF', letterSpacing: '-0.3px' }}>
             ExpediteHub
           </span>
         </div>
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           <Link
             href="/login"
             style={{
               padding: '8px 20px',
               borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--kds-border)',
-              color: 'var(--kds-text-primary)',
+              border: '1px solid rgba(255,255,255,0.15)',
+              color: 'rgba(255,255,255,0.8)',
               fontFamily: 'var(--font-body)',
               fontSize: '14px',
               fontWeight: 500,
               textDecoration: 'none',
-              transition: 'border-color 120ms',
             }}
           >
             Sign In
@@ -75,7 +82,7 @@ export default function LandingPage(): React.JSX.Element {
               color: '#FFFFFF',
               fontFamily: 'var(--font-body)',
               fontSize: '14px',
-              fontWeight: 500,
+              fontWeight: 600,
               textDecoration: 'none',
             }}
           >
@@ -91,23 +98,29 @@ export default function LandingPage(): React.JSX.Element {
           maxWidth: '900px',
           margin: '0 auto',
           textAlign: 'center',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
+        {/* Badge */}
         <div
           style={{
-            display: 'inline-block',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
             padding: '6px 16px',
             borderRadius: 'var(--radius-pill)',
-            background: 'rgba(30, 107, 107, 0.2)',
-            border: '1px solid rgba(30, 107, 107, 0.4)',
+            background: 'rgba(27, 122, 109, 0.15)',
+            border: '1px solid rgba(27, 122, 109, 0.35)',
             color: '#4ECDC4',
-            fontSize: '13px',
-            fontWeight: 500,
-            letterSpacing: '0.5px',
+            fontSize: '12px',
+            fontWeight: 600,
+            letterSpacing: '1px',
             textTransform: 'uppercase',
-            marginBottom: '28px',
+            marginBottom: '32px',
           }}
         >
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4ECDC4', display: 'inline-block' }} />
           Multi-Tenant Restaurant Platform
         </div>
 
@@ -115,10 +128,10 @@ export default function LandingPage(): React.JSX.Element {
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 700,
-            fontSize: 'clamp(36px, 6vw, 64px)',
-            lineHeight: 1.15,
-            color: 'var(--kds-text-primary)',
-            letterSpacing: '-1px',
+            fontSize: 'clamp(38px, 6vw, 68px)',
+            lineHeight: 1.12,
+            color: '#FFFFFF',
+            letterSpacing: '-1.5px',
             marginBottom: '24px',
           }}
         >
@@ -130,9 +143,9 @@ export default function LandingPage(): React.JSX.Element {
         <p
           style={{
             fontSize: '18px',
-            color: 'var(--kds-text-secondary)',
+            color: 'rgba(255,255,255,0.55)',
             maxWidth: '580px',
-            margin: '0 auto 44px',
+            margin: '0 auto 48px',
             lineHeight: 1.7,
           }}
         >
@@ -140,43 +153,125 @@ export default function LandingPage(): React.JSX.Element {
           Place orders, track prep status, and view live revenue — all without a single page reload.
         </p>
 
-        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link
             href="/register"
             style={{
-              padding: '14px 32px',
+              padding: '15px 32px',
               background: 'var(--tenant-accent)',
               color: '#FFFFFF',
               borderRadius: 'var(--radius-md)',
               fontFamily: 'var(--font-body)',
-              fontWeight: 600,
-              fontSize: '16px',
+              fontWeight: 700,
+              fontSize: '15px',
               textDecoration: 'none',
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
+              letterSpacing: '0.2px',
             }}
           >
             Register Your Restaurant
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </Link>
           <Link
             href="/login"
             style={{
-              padding: '14px 32px',
-              border: '1px solid var(--kds-border)',
-              color: 'var(--kds-text-primary)',
+              padding: '15px 32px',
+              border: '1px solid rgba(255,255,255,0.15)',
+              color: 'rgba(255,255,255,0.8)',
               borderRadius: 'var(--radius-md)',
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: '16px',
+              fontSize: '15px',
               textDecoration: 'none',
             }}
           >
             Sign In to Portal
           </Link>
+        </div>
+      </section>
+
+      {/* ── How It Works ── */}
+      <section
+        style={{
+          padding: '0 48px 80px',
+          maxWidth: '900px',
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '11px',
+            fontWeight: 700,
+            color: 'rgba(255,255,255,0.3)',
+            textTransform: 'uppercase',
+            letterSpacing: '1.5px',
+            marginBottom: '10px',
+          }}>
+            How It Works
+          </p>
+          <h2 style={{
+            fontFamily: 'var(--font-body)',
+            fontWeight: 700,
+            fontSize: '28px',
+            color: '#FFFFFF',
+            letterSpacing: '-0.5px',
+          }}>
+            Three roles. One system.
+          </h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'rgba(255,255,255,0.06)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+          {howItWorksStepList.map((step, index) => (
+            <div
+              key={step.stepTitle}
+              style={{
+                background: '#111C1A',
+                padding: '32px 28px',
+              }}
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                marginBottom: '16px',
+              }}>
+                <span style={{
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 700,
+                  fontSize: '13px',
+                  color: 'var(--tenant-accent)',
+                  background: 'rgba(27, 122, 109, 0.12)',
+                  padding: '3px 10px',
+                  borderRadius: 'var(--radius-pill)',
+                }}>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div style={{ height: '1px', flex: 1, background: 'rgba(27, 122, 109, 0.2)' }} />
+              </div>
+              <h3 style={{
+                fontFamily: 'var(--font-body)',
+                fontWeight: 600,
+                fontSize: '17px',
+                color: '#FFFFFF',
+                marginBottom: '10px',
+              }}>
+                {step.stepTitle}
+              </h3>
+              <p style={{
+                fontSize: '14px',
+                color: 'rgba(255,255,255,0.5)',
+                lineHeight: 1.6,
+              }}>
+                {step.stepDescription}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -186,24 +281,49 @@ export default function LandingPage(): React.JSX.Element {
           padding: '0 48px 100px',
           maxWidth: '1100px',
           margin: '0 auto',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '11px',
+            fontWeight: 700,
+            color: 'rgba(255,255,255,0.3)',
+            textTransform: 'uppercase',
+            letterSpacing: '1.5px',
+            marginBottom: '10px',
+          }}>
+            Portals
+          </p>
+          <h2 style={{
+            fontFamily: 'var(--font-body)',
+            fontWeight: 700,
+            fontSize: '28px',
+            color: '#FFFFFF',
+            letterSpacing: '-0.5px',
+          }}>
+            Purpose-built for every role.
+          </h2>
+        </div>
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '20px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '16px',
           }}
         >
           {portalFeatureCardDataList.map((portalFeatureCard) => (
             <div
               key={portalFeatureCard.portalFeatureCardTitle}
               style={{
-                background: 'var(--kds-surface)',
+                background: '#1A2525',
                 borderRadius: 'var(--radius-lg)',
                 padding: '28px',
-                border: '1px solid var(--kds-border)',
+                border: '1px solid rgba(255,255,255,0.06)',
                 borderTop: `3px solid ${portalFeatureCard.portalFeatureCardAccentColor}`,
+                transition: 'transform 160ms, box-shadow 160ms',
               }}
             >
               <div
@@ -211,11 +331,11 @@ export default function LandingPage(): React.JSX.Element {
                   width: '44px',
                   height: '44px',
                   borderRadius: 'var(--radius-md)',
-                  background: `${portalFeatureCard.portalFeatureCardAccentColor}20`,
+                  background: `${portalFeatureCard.portalFeatureCardAccentColor}18`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginBottom: '16px',
+                  marginBottom: '18px',
                   color: portalFeatureCard.portalFeatureCardAccentColor,
                 }}
               >
@@ -226,7 +346,7 @@ export default function LandingPage(): React.JSX.Element {
                   fontFamily: 'var(--font-body)',
                   fontWeight: 600,
                   fontSize: '17px',
-                  color: 'var(--kds-text-primary)',
+                  color: '#FFFFFF',
                   marginBottom: '10px',
                 }}
               >
@@ -235,7 +355,7 @@ export default function LandingPage(): React.JSX.Element {
               <p
                 style={{
                   fontSize: '14px',
-                  color: 'var(--kds-text-secondary)',
+                  color: 'rgba(255,255,255,0.5)',
                   lineHeight: 1.65,
                 }}
               >
@@ -249,19 +369,46 @@ export default function LandingPage(): React.JSX.Element {
       {/* ── Footer ── */}
       <footer
         style={{
-          borderTop: '1px solid var(--kds-border)',
-          padding: '24px 48px',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+          padding: '28px 48px',
           display: 'flex',
-          justifyContent: 'center',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
-        <p style={{ fontSize: '13px', color: 'var(--kds-text-secondary)' }}>
+        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)' }}>
           © {new Date().getFullYear()} ExpediteHub. Multi-tenant restaurant management.
         </p>
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <Link href="/login" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Sign In</Link>
+          <Link href="/register" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Register</Link>
+        </div>
       </footer>
     </main>
   );
 }
+
+interface HowItWorksStepData {
+  stepTitle: string;
+  stepDescription: string;
+}
+
+const howItWorksStepList: HowItWorksStepData[] = [
+  {
+    stepTitle: 'Cashier takes the order',
+    stepDescription: 'The cashier selects items from the live menu on the POS terminal and places the order instantly.',
+  },
+  {
+    stepTitle: 'Kitchen receives and prepares',
+    stepDescription: 'The order appears on the KDS in real time. Chefs advance the status as they prepare each ticket.',
+  },
+  {
+    stepTitle: 'Cashier collects payment',
+    stepDescription: 'When the kitchen marks an order Ready, the cashier is notified to collect and close the order.',
+  },
+];
 
 interface PortalFeatureCardData {
   portalFeatureCardTitle: string;
@@ -275,7 +422,7 @@ const portalFeatureCardDataList: PortalFeatureCardData[] = [
     portalFeatureCardTitle: 'Admin Portal',
     portalFeatureCardDescription:
       'Manage your menu, staff roster, and view live analytics including revenue breakdowns by category, cashier, and chef performance.',
-    portalFeatureCardAccentColor: 'var(--tenant-accent)',
+    portalFeatureCardAccentColor: '#1B7A6D',
     portalFeatureCardIconElement: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
@@ -298,7 +445,7 @@ const portalFeatureCardDataList: PortalFeatureCardData[] = [
   {
     portalFeatureCardTitle: 'Kitchen Display',
     portalFeatureCardDescription:
-      'A dark-themed Kanban board readable from across a prep station. Orders arrive in real time. Delayed tickets pulse for immediate attention.',
+      'A warm-light Kanban board readable from across a prep station. Orders arrive in real time. Delayed tickets surface immediately.',
     portalFeatureCardAccentColor: '#10B981',
     portalFeatureCardIconElement: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
