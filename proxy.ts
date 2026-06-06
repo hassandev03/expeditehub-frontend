@@ -19,7 +19,7 @@ const allowedRoutePathPrefixByRole: Record<string, string[]> = {
   chef:    ['/kds'],
 };
 
-export default async function proxy(incomingNextRequest: NextRequest): Promise<NextResponse> {
+export async function proxy(incomingNextRequest: NextRequest): Promise<NextResponse> {
   const requestPathname = incomingNextRequest.nextUrl.pathname;
 
   // Allow public routes through unconditionally

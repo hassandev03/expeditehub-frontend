@@ -21,42 +21,59 @@ export async function postRegisterRestaurantTenant(
 }
 
 // ─── Employee CRUD ────────────────────────────────────────────────────────────
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapBackendEmployee(backendEmployee: any): RestaurantEmployeeRecord {
+  return {
+    restaurantEmployeeIdentifier: backendEmployee._id,
+    restaurantEmployeeFullName: backendEmployee.fullName,
+    restaurantEmployeeEmail: backendEmployee.email,
+    restaurantEmployeeRole: backendEmployee.role,
+    restaurantEmployeeIsActive: backendEmployee.isActive,
+    restaurantEmployeeTenantIdentifier: backendEmployee.tenantId,
+  };
+}
+
 export async function postCreateRestaurantEmployee(
   newEmployeePayload: CreateRestaurantEmployeeRequestPayload
 ): Promise<{ employee: RestaurantEmployeeRecord }> {
-  const apiResponse = await expediteHubAxiosInstance.post<{ employee: RestaurantEmployeeRecord }>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const apiResponse = await expediteHubAxiosInstance.post<{ employee: any }>(
     '/employees',
     newEmployeePayload
   );
-  return apiResponse.data;
+  return { employee: mapBackendEmployee(apiResponse.data.employee) };
 }
 
 export async function getRestaurantEmployeeList(): Promise<{
   employees: RestaurantEmployeeRecord[];
 }> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const apiResponse = await expediteHubAxiosInstance.get<{
-    employees: RestaurantEmployeeRecord[];
+    employees: any[];
   }>('/employees');
-  return apiResponse.data;
+  return { employees: apiResponse.data.employees.map(mapBackendEmployee) };
 }
 
 export async function getRestaurantEmployeeById(
   restaurantEmployeeIdentifier: string
 ): Promise<{ employee: RestaurantEmployeeRecord }> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const apiResponse = await expediteHubAxiosInstance.get<{
-    employee: RestaurantEmployeeRecord;
+    employee: any;
   }>(`/employees/${restaurantEmployeeIdentifier}`);
-  return apiResponse.data;
+  return { employee: mapBackendEmployee(apiResponse.data.employee) };
 }
 
 export async function putUpdateRestaurantEmployee(
   restaurantEmployeeIdentifier: string,
   updateEmployeePayload: UpdateRestaurantEmployeeRequestPayload
 ): Promise<{ employee: RestaurantEmployeeRecord }> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const apiResponse = await expediteHubAxiosInstance.put<{
-    employee: RestaurantEmployeeRecord;
+    employee: any;
   }>(`/employees/${restaurantEmployeeIdentifier}`, updateEmployeePayload);
-  return apiResponse.data;
+  return { employee: mapBackendEmployee(apiResponse.data.employee) };
 }
 
 export async function patchDeactivateRestaurantEmployee(
