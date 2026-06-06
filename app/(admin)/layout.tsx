@@ -55,7 +55,7 @@ export default function AdminPortalLayout({
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-main)' }}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg-main)' }}>
       <AdminNavigationSidebar
         restaurantTenantName={restaurantTenant?.restaurantTenantName ?? 'ExpediteHub'}
         restaurantTenantLogoUrl={restaurantTenant?.restaurantTenantLogoUrl ?? '/logo.png'}

@@ -21,7 +21,7 @@ export default function PortalTopBar({
     <header
       style={{
         height: '64px',
-        background: 'var(--nav-surface)',
+        background: 'var(--surface-card)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -29,9 +29,9 @@ export default function PortalTopBar({
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        borderBottom: '1px solid var(--border)',
         flexShrink: 0,
-        boxShadow: '0 4px 24px rgba(0,0,0,0.1)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.02)',
       }}
     >
       {/* Left: logo + name */}
@@ -66,7 +66,7 @@ export default function PortalTopBar({
             fontFamily: 'var(--font-heading)',
             fontWeight: 700,
             fontSize: '16px',
-            color: 'var(--text-inverted)',
+            color: 'var(--text-primary)',
             letterSpacing: '0.2px',
           }}
         >
@@ -81,8 +81,8 @@ export default function PortalTopBar({
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: '14px',
-            fontWeight: 500,
-            color: 'rgba(255, 255, 255, 0.7)',
+            fontWeight: 600,
+            color: 'var(--text-primary)',
           }}
         >
           {authenticatedEmployeeFullName}
@@ -90,19 +90,19 @@ export default function PortalTopBar({
         <button
           onClick={onLogoutButtonSelect}
           onMouseOver={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-            e.currentTarget.style.color = '#FFFFFF';
+            e.currentTarget.style.background = 'var(--surface-secondary)';
+            e.currentTarget.style.color = 'var(--text-primary)';
           }}
           onMouseOut={(e) => {
             e.currentTarget.style.background = 'transparent';
-            e.currentTarget.style.color = 'var(--text-inverted)';
+            e.currentTarget.style.color = 'var(--text-secondary)';
           }}
           style={{
             padding: '8px 16px',
             borderRadius: 'var(--radius-md)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            border: '1px solid var(--border)',
             background: 'transparent',
-            color: 'var(--text-inverted)',
+            color: 'var(--text-secondary)',
             fontFamily: 'var(--font-body)',
             fontSize: '13px',
             fontWeight: 600,

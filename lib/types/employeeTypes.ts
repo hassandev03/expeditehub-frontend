@@ -44,6 +44,13 @@ export interface LoginApiResponse {
     role: EmployeeRoleValue;
     tenantId: string;
   };
+  tenant?: {
+    _id: string;
+    name: string;
+    address: string;
+    contactEmail: string;
+    logoUrl?: string;
+  };
 }
 
 export interface RefreshTokenApiResponse {

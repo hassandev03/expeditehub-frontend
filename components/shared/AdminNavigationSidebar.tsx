@@ -71,22 +71,22 @@ export default function AdminNavigationSidebar({
       style={{
         width: isCollapsed ? '80px' : '260px',
         minHeight: '100vh',
-        background: 'var(--nav-surface)',
+        background: 'var(--surface-card)',
         display: 'flex',
         flexDirection: 'column',
         flexShrink: 0,
         position: 'relative',
         transition: 'width 300ms cubic-bezier(0.2, 0, 0, 1)',
-        borderRight: '1px solid rgba(255, 255, 255, 0.05)',
+        borderRight: '1px solid var(--border)',
       }}
     >
-      {/* Collapse Toggle Button */}
+      {/* Collapse Toggle Button - Floating on right edge */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
         style={{
           position: 'absolute',
           right: '-14px',
-          top: '32px',
+          top: '36px',
           width: '28px',
           height: '28px',
           borderRadius: '50%',
@@ -161,14 +161,14 @@ export default function AdminNavigationSidebar({
                 fontFamily: 'var(--font-heading)',
                 fontWeight: 700,
                 fontSize: '16px',
-                color: 'var(--text-inverted)',
+                color: 'var(--text-primary)',
                 display: 'block',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 letterSpacing: '0.2px',
               }}
             >
-              {restaurantTenantName}
+              {restaurantTenantName || 'ExpediteHub'}
             </span>
             <span
               style={{
@@ -187,7 +187,7 @@ export default function AdminNavigationSidebar({
       </div>
 
       {/* Divider */}
-      <div style={{ height: '1px', background: 'rgba(255,255,255, 0.08)', margin: isCollapsed ? '0 16px 24px' : '0 24px 24px', transition: 'margin 300ms' }} />
+      <div style={{ height: '1px', background: 'var(--border)', margin: isCollapsed ? '0 16px 24px' : '0 24px 24px', transition: 'margin 300ms' }} />
 
       {/* Navigation items */}
       <nav style={{ flex: 1, padding: isCollapsed ? '0 12px' : '0 16px', display: 'flex', flexDirection: 'column', gap: '6px', transition: 'padding 300ms' }}>
@@ -209,10 +209,10 @@ export default function AdminNavigationSidebar({
                 borderRadius: 'var(--radius-lg)',
                 textDecoration: 'none',
                 color: isCurrentlyActiveRoute
-                  ? '#FFFFFF'
-                  : 'rgba(255,255,255,0.6)',
+                  ? 'var(--tenant-accent)'
+                  : 'var(--text-secondary)',
                 background: isCurrentlyActiveRoute
-                  ? 'color-mix(in srgb, var(--tenant-accent) 20%, transparent)'
+                  ? 'color-mix(in srgb, var(--tenant-accent) 10%, transparent)'
                   : 'transparent',
                 fontFamily: 'var(--font-body)',
                 fontWeight: isCurrentlyActiveRoute ? 600 : 500,
@@ -258,7 +258,7 @@ export default function AdminNavigationSidebar({
       {/* Sidebar footer */}
       <div style={{
         padding: isCollapsed ? '16px 0' : '16px 24px',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        borderTop: '1px solid var(--border)',
         flexShrink: 0,
         display: 'flex',
         alignItems: 'center',
@@ -275,7 +275,8 @@ export default function AdminNavigationSidebar({
           <p style={{
             fontFamily: 'var(--font-body)',
             fontSize: '12px',
-            color: 'rgba(255, 255, 255, 0.3)',
+            color: 'var(--text-secondary)',
+            opacity: 0.7,
             letterSpacing: '0.3px',
             fontWeight: 500,
             whiteSpace: 'nowrap',

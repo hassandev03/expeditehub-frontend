@@ -27,14 +27,14 @@
   --tenant-accent-hover:   #A85A22;
 
   /* ─── Light Theme (Admin + Cashier) ─── */
-  --bg-main:               #F7F8F6;
+  --bg-main:               #FCFAF5;
   --surface-card:          #FFFFFF;
-  --surface-secondary:     #EDF0EE;
+  --surface-secondary:     #F4F1EC;
   --nav-surface:           #141414;
-  --text-primary:          #111827;
-  --text-secondary:        #6B7280;
-  --text-inverted:         #F7F8F6;
-  --border:                #E4E7E4;
+  --text-primary:          #1C1915;
+  --text-secondary:        #736B5E;
+  --text-inverted:         #FCFAF5;
+  --border:                #E5E1D8;
 
   /* ─── Dark Theme (KDS / Chef Portal — default, overridden to light in layout) ─── */
   --kds-bg:                #0A0A0A;

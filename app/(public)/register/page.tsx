@@ -116,13 +116,12 @@ export default function RegisterPage(): React.JSX.Element {
   }
 
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', background: '#FCFAF5', fontFamily: 'var(--font-body)' }}>
+    <main style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', background: '#FCFAF5', fontFamily: 'var(--font-body)' }}>
       {/* Left Image Section */}
-      <div style={{
+      <div className="hidden md:block" style={{
         flex: 1,
         position: 'relative',
-        display: 'none',
-      }} className="auth-image-container">
+      }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/auth-bg.png" alt="Restaurant Interior" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.4), transparent)' }} />

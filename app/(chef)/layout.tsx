@@ -82,18 +82,18 @@ export default function ChefPortalLayout({
         ...kdsLightThemeTokens,
       }}
     >
-      {/* KDS Top Bar — uses nav-surface (same as admin/cashier) for consistency */}
+      {/* KDS Top Bar */}
       <header
         style={{
           height: '64px',
-          background: 'var(--nav-surface)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--surface-card)',
+          borderBottom: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0 28px',
           flexShrink: 0,
-          boxShadow: '0 4px 24px rgba(0,0,0,0.1)',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.02)',
         }}
       >
         {/* Left: logo + name + role badge */}
@@ -103,7 +103,7 @@ export default function ChefPortalLayout({
             alt="ExpediteHub Logo"
             style={{ width: '28px', height: '28px', borderRadius: 'var(--radius-md)', objectFit: 'contain' }}
           />
-          <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '15px', color: 'var(--text-inverted)' }}>
+          <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '16px', color: 'var(--text-primary)', letterSpacing: '0.2px' }}>
             {restaurantTenant?.restaurantTenantName ?? 'ExpediteHub'}
           </span>
           <span
@@ -111,8 +111,8 @@ export default function ChefPortalLayout({
               fontFamily: 'var(--font-body)',
               fontSize: '11px',
               fontWeight: 500,
-              color: 'var(--text-inverted)',
-              background: 'rgba(255,255,255,0.12)',
+              color: 'var(--tenant-accent)',
+              background: 'color-mix(in srgb, var(--tenant-accent) 10%, transparent)',
               padding: '2px 8px',
               borderRadius: 'var(--radius-pill)',
               letterSpacing: '0.5px',
@@ -151,26 +151,26 @@ export default function ChefPortalLayout({
                 .toUpperCase()
                 .slice(0, 2)}
             </div>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--text-inverted)', opacity: 0.85 }}>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
               {authenticatedEmployee.fullName}
             </span>
           </div>
           <button
             onClick={handleLogoutButtonSelect}
             onMouseOver={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-              e.currentTarget.style.color = '#FFFFFF';
+              e.currentTarget.style.background = 'var(--surface-secondary)';
+              e.currentTarget.style.color = 'var(--text-primary)';
             }}
             onMouseOut={(e) => {
               e.currentTarget.style.background = 'transparent';
-              e.currentTarget.style.color = 'var(--text-inverted)';
+              e.currentTarget.style.color = 'var(--text-secondary)';
             }}
             style={{
               padding: '8px 16px',
               borderRadius: 'var(--radius-md)',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
+              border: '1px solid var(--border)',
               background: 'transparent',
-              color: 'var(--text-inverted)',
+              color: 'var(--text-secondary)',
               fontFamily: 'var(--font-body)',
               fontSize: '13px',
               fontWeight: 600,
@@ -214,7 +214,7 @@ function LiveClockDisplay(): React.JSX.Element {
         fontFamily: 'var(--font-display)',
         fontWeight: 500,
         fontSize: '14px',
-        color: 'rgba(247, 248, 246, 0.6)',
+        color: 'var(--text-secondary)',
         letterSpacing: '0.5px',
       }}
     >
